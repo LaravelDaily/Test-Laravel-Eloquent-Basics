@@ -27,7 +27,7 @@ Good luck!
 
 ## Task 1. Model with Different Table Name.
 
-In `app/Models/News.php` file, specify that the model would work with "morning_news" table, as it is created in the migrations.
+In `app/Models/Morningnews.php` file, change it so that the model would work with "morning_news" table, as it is created in the migrations.
 
-Test method `test_create_model_different_table()`.
+Test method `test_create_model_incorrect_table()`.
 

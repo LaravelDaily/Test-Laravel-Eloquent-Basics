@@ -5,8 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-// TASK: Define the model's related table as "morning_news"
-class News extends Model
+class Morningnews extends Model
 {
     use HasFactory;
 
