@@ -119,4 +119,13 @@ class EloquentTest extends TestCase
         $this->assertDatabaseCount('users', 1);
     }
 
+    public function test_soft_delete_projects()
+    {
+        $project = new Project();
+        $project->name = 'Some name';
+        $project->save();
+
+        $response = $this->delete('projects/' . $project->id);
+        $response->assertSee('Some name');
+    }
 }

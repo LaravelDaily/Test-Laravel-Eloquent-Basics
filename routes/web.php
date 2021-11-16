@@ -30,3 +30,4 @@ Route::delete('users', [UserController::class, 'destroy']);
 
 Route::post('projects', [ProjectController::class, 'store']);
 Route::post('projects/mass_update', [ProjectController::class, 'mass_update']);
+Route::delete('projects/{projectId}', [ProjectController::class, 'destroy']);

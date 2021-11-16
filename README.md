@@ -96,3 +96,11 @@ In `app/Http/Controllers/UserController.php` file method `destroy()`, delete all
 Test method `test_mass_delete_users()`.
 
 ---
+
+## Task 9. Soft Deletes.
+
+In `app/Http/Controllers/ProjectController.php` file method `destroy()`, change Eloquent statement to still return the soft-deleted records in the list of `$projects`
+
+Test method `test_soft_delete_projects()`.
+
+---
