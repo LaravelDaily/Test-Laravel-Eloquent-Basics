@@ -22,7 +22,7 @@ class EloquentTest extends TestCase
     }
 
     // TASK: Write Eloquent query to return the newest 3 verified users
-    public function test_users_get()
+    public function test_get_filtered_list()
     {
         $user1 = User::factory()->create(['created_at' => now()->subMinutes(5)]);
         $user2 = User::factory()->create(['created_at' => now()->subMinutes(4)]);
@@ -42,6 +42,17 @@ class EloquentTest extends TestCase
         $response->assertSee('1. ' . $user5->name);
         $response->assertSee('2. ' . $user4->name);
         $response->assertSee('3. ' . $user2->name); // not $user3
+    }
+
+    public function test_find_user_or_show_404_page()
+    {
+        $response = $this->get('users/1');
+        $response->assertStatus(404);
+
+        $user = User::factory()->create();
+        $response = $this->get('users/1');
+        $response->assertStatus(200);
+        $response->assertViewHas('user', $user);
     }
 
 }

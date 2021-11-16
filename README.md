@@ -33,7 +33,7 @@ Test method `test_create_model_incorrect_table()`.
 
 ---
 
-## Task 2. Eloquent Get Data.
+## Task 2. Get Data List.
 
 In `app/Http/Controllers/UserController.php` file method `index()`, write Eloquent query to get 3 newest users with verified emails, ordered from newest to oldest. Transform this SQL query into Eloquent:
 
@@ -41,5 +41,13 @@ In `app/Http/Controllers/UserController.php` file method `index()`, write Eloque
 select * from users where email_verified_at is not null order by created_at desc limit 3
 ```
 
-Test method `test_users_get()`.
+Test method `test_get_filtered_list()`.
+
+---
+
+## Task 3. Get a Single Record.
+
+In `app/Http/Controllers/UserController.php` file method `show($userId)`, fill in the `$user` value with finding the user by `users.id = $userId`. If the user is not found, show default Laravel 404 page. 
+
+Test method `test_find_user_or_show_404_page()`.
 

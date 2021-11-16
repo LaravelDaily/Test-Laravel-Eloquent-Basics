@@ -18,4 +18,11 @@ class UserController extends Controller
 
         return view('users.index', compact('users'));
     }
+
+    public function show($userId)
+    {
+        $user = NULL; // TASK: find user by $userId or show "404 not found" page
+
+        return view('users.show', compact('user'));
+    }
 }
