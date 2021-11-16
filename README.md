@@ -31,3 +31,15 @@ In `app/Models/Morningnews.php` file, change it so that the model would work wit
 
 Test method `test_create_model_incorrect_table()`.
 
+---
+
+## Task 2. Eloquent Get Data.
+
+In `app/Http/Controllers/UserController.php` file method `index()`, write Eloquent query to get 3 newest users with verified emails, ordered from newest to oldest. Transform this SQL query into Eloquent:
+
+```
+select * from users where email_verified_at is not null order by created_at desc limit 3
+```
+
+Test method `test_users_get()`.
+
