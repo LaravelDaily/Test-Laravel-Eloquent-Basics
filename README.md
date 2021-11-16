@@ -112,3 +112,11 @@ In `app/Http/Controllers/UserController.php` file method `only_active()`, make t
 Test method `test_active_users()`.
 
 ---
+
+## Task 11. Observers with New Record.
+
+In `app/Http/Controllers/ProjectController.php` file method `store_with_stats()`, create a separate Observer file with an event to perform a +1 in the stats table.
+
+Test method `test_insert_observer()`.
+
+---
