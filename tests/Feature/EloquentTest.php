@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use App\Models\Morningnews;
-use App\Models\News;
 use App\Models\Project;
 use App\Models\Stat;
 use App\Models\User;
