@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\Morningnews;
 use App\Models\News;
+use App\Models\Project;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -74,4 +75,19 @@ class EloquentTest extends TestCase
         $response->assertRedirect();
     }
 
+    public function test_mass_update_projects() {
+        $project = new Project();
+        $project->name = 'Old name';
+        $project->save();
+
+        $this->assertDatabaseHas('projects', ['name' => 'Old name']);
+
+        $response = $this->post('projects/mass_update', [
+            'old_name' => 'Old name',
+            'new_name' => 'New name'
+        ]);
+        $response->assertRedirect();
+        $this->assertDatabaseMissing('projects', ['name' => 'Old name']);
+        $this->assertDatabaseHas('projects', ['name' => 'New name']);
+    }
 }

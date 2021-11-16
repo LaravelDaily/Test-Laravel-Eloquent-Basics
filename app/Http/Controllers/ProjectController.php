@@ -16,4 +16,16 @@ class ProjectController extends Controller
 
         return redirect('/')->with('success', 'Project created');
     }
+
+    public function mass_update(Request $request)
+    {
+        // TASK: Transform this SQL query into Eloquent
+        // update projects
+        //   set name = $request->new_name
+        //   where name = $request->old_name
+
+        // Insert Eloquent statement below
+
+        return redirect('/')->with('success', 'Projects updated');
+    }
 }
