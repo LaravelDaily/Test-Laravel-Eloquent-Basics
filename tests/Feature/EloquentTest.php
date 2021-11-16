@@ -69,4 +69,9 @@ class EloquentTest extends TestCase
         $this->assertDatabaseCount('users', 1);
     }
 
+    public function test_create_project() {
+        $response = $this->post('projects', ['name' => 'Some name']);
+        $response->assertRedirect();
+    }
+
 }

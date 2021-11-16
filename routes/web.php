@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProjectController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,3 +22,5 @@ Route::get('/', function () {
 Route::get('users', [UserController::class, 'index']);
 Route::get('users/{userId}', [UserController::class, 'show']);
 Route::get('users/check/{name}/{email}', [UserController::class, 'check_create']);
+
+Route::post('projects', [ProjectController::class, 'store']);

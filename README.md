@@ -59,3 +59,12 @@ In `app/Http/Controllers/UserController.php` file method `check_create()`, find 
 
 Test method `test_check_or_create_user()`.
 
+---
+
+## Task 5. Create a New Record.
+
+In `app/Http/Controllers/ProjectController.php` file method `store()`, creating the project will fail. Fix the underlying issue, to make it work.
+
+Test method `test_create_project()`.
+
+---
