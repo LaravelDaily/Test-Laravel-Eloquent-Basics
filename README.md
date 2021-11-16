@@ -51,3 +51,11 @@ In `app/Http/Controllers/UserController.php` file method `show($userId)`, fill i
 
 Test method `test_find_user_or_show_404_page()`.
 
+---
+
+## Task 4. Get a Single Record or Create a New Record.
+
+In `app/Http/Controllers/UserController.php` file method `check_create()`, find the user by name and email. If the user is not found, create it (with random password).
+
+Test method `test_check_or_create_user()`.
+

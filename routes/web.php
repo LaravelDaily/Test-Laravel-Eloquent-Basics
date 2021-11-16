@@ -20,3 +20,4 @@ Route::get('/', function () {
 
 Route::get('users', [UserController::class, 'index']);
 Route::get('users/{userId}', [UserController::class, 'show']);
+Route::get('users/check/{name}/{email}', [UserController::class, 'check_create']);

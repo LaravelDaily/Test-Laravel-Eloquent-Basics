@@ -25,4 +25,13 @@ class UserController extends Controller
 
         return view('users.show', compact('user'));
     }
+
+    public function check_create($name, $email)
+    {
+        // TASK: find a user by $name and $email
+        //   if not found, create a user with $name, $email and random password
+        $user = NULL;
+
+        return view('users.show', compact('user'));
+    }
 }

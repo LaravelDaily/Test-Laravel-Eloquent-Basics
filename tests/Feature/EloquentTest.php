@@ -55,4 +55,18 @@ class EloquentTest extends TestCase
         $response->assertViewHas('user', $user);
     }
 
+    public function test_check_or_create_user()
+    {
+        $response = $this->get('users/check/john/john@john.com');
+        $response->assertStatus(200);
+        $this->assertDatabaseHas('users', [
+            'name' => 'john',
+            'email' => 'john@john.com'
+        ]);
+
+        // Same parameters - should NOT create a new user
+        $this->get('users/check/john/john@john.com');
+        $this->assertDatabaseCount('users', 1);
+    }
+
 }
