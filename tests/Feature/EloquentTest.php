@@ -128,4 +128,12 @@ class EloquentTest extends TestCase
         $response = $this->delete('projects/' . $project->id);
         $response->assertSee('Some name');
     }
+
+    public function test_active_users()
+    {
+        $user = User::factory()->create(['email_verified_at' => NULL]);
+
+        $response = $this->get('users/active');
+        $response->assertDontSee($user->name);
+    }
 }

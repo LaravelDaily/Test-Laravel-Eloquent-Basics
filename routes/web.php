@@ -23,6 +23,7 @@ Route::get('/', function () {
 // Some routes are just for the purpose of replicating some testing scenario
 
 Route::get('users', [UserController::class, 'index']);
+Route::get('users/active', [UserController::class, 'only_active']);
 Route::get('users/{userId}', [UserController::class, 'show']);
 Route::get('users/check/{name}/{email}', [UserController::class, 'check_create']);
 Route::get('users/check_update/{name}/{email}', [UserController::class, 'check_update']);

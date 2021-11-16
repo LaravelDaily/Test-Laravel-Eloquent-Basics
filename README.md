@@ -104,3 +104,11 @@ In `app/Http/Controllers/ProjectController.php` file method `destroy()`, change 
 Test method `test_soft_delete_projects()`.
 
 ---
+
+## Task 10. Scopes with Filters.
+
+In `app/Http/Controllers/UserController.php` file method `only_active()`, make the main statement work and to filter records where email_verified_at is not null.
+
+Test method `test_active_users()`.
+
+---
