@@ -68,3 +68,31 @@ In `app/Http/Controllers/ProjectController.php` file method `store()`, creating 
 Test method `test_create_project()`.
 
 ---
+
+## Task 6. Mass Update.
+
+In `app/Http/Controllers/ProjectController.php` file method `mass_update()`, write the update SQL query as Eloquent statement.
+
+```
+update projects set name = $request->new_name where name = $request->old_name
+```
+
+Test method `test_mass_update_projects()`.
+
+---
+
+## Task 7. Update or New Record.
+
+In `app/Http/Controllers/UserController.php` file method `check_update()`, find a user by $name and update it with $email. If not found, create a user with $name, $email and random password
+
+Test method `test_check_or_update_user()`.
+
+---
+
+## Task 8. Mass Delete Users.
+
+In `app/Http/Controllers/UserController.php` file method `destroy()`, delete all users by the array of `$request->users`
+
+Test method `test_mass_delete_users()`.
+
+---

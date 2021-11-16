@@ -25,6 +25,8 @@ Route::get('/', function () {
 Route::get('users', [UserController::class, 'index']);
 Route::get('users/{userId}', [UserController::class, 'show']);
 Route::get('users/check/{name}/{email}', [UserController::class, 'check_create']);
+Route::get('users/check_update/{name}/{email}', [UserController::class, 'check_update']);
+Route::delete('users', [UserController::class, 'destroy']);
 
 Route::post('projects', [ProjectController::class, 'store']);
 Route::post('projects/mass_update', [ProjectController::class, 'mass_update']);
