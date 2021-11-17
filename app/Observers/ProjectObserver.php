@@ -9,8 +9,6 @@ class ProjectObserver
 {
     public function created(Project $project)
     {
-        Stat::query()
-            ->firstOr(fn() => Stat::query()->create(['projects_count' => 0]))
-            ->increment('projects_count');
+        Stat::query()->increment('projects_count');
     }
 }
