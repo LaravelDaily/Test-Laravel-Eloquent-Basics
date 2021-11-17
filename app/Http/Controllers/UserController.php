@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\{Request, Response};
-use Illuminate\Support\Facades\{Hash, Validator};
+use Illuminate\Support\Facades\{Hash, Log, Validator};
 use Illuminate\Support\Str;
 
 class UserController extends Controller
@@ -52,7 +52,19 @@ class UserController extends Controller
     {
         // TASK: find a user by $name and update it with $email
         //   if not found, create a user with $name, $email and random password
-        $user = NULL; // updated or created user
+        $user = User::query()
+            ->firstOrCreate([
+                'name'  => $name,
+            ],[
+                'email' => $email,
+                'password' => Hash::make(Str::random()),
+            ]);
+
+        if (! $user->wasRecentlyCreated) {
+            $user->update([
+                'email' => $email,
+            ]);
+        }
 
         return view('users.show', compact('user'));
     }
