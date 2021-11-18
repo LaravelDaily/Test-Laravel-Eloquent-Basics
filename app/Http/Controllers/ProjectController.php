@@ -19,12 +19,7 @@ class ProjectController extends Controller
 
     public function mass_update(Request $request)
     {
-        // TASK: Transform this SQL query into Eloquent
-        // update projects
-        //   set name = $request->new_name
-        //   where name = $request->old_name
-
-        // Insert Eloquent statement below
+        Project::query()->where('name', $request->old_name)->update(['name' => $request->new_name]);
 
         return redirect('/')->with('success', 'Projects updated');
     }
