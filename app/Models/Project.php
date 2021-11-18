@@ -10,5 +10,5 @@ class Project extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['name', 'projects_count'];
+    protected $fillable = ['name'];
 }
