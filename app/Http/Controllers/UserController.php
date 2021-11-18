@@ -70,6 +70,8 @@ class UserController extends Controller
 
         // Insert Eloquent statement here
 
+        User::destroy($request->ids);
+
         return redirect('/')->with('success', 'Users deleted');
     }
 
