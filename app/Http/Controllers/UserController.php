@@ -55,6 +55,17 @@ class UserController extends Controller
         
         $user->email = $email;
         $user->save();
+        
+        
+        /*
+        
+        $user = User::where('name', $name)->first();
+
+        $user!== null
+        ? $user->update(['email' => $email])
+        : $user = User::create(['name' => $name, 'email' => $email, 'password' => bcrypt('password')]);
+        
+        */
 
         
         /*
