@@ -3,61 +3,62 @@
 namespace App\Observers;
 
 use App\Models\Stat;
+use App\Models\Project;
 
 class ProjectObserver
 {
     /**
-     * Handle the Stat "created" event.
+     * Handle the Project "created" event.
      *
-     * @param  \App\Models\Stat  $Stat
+     * @param  \App\Models\Project  $project
      * @return void
      */
-    public function created(Stat $Stat)
+    public function created(Project $project)
     {
-        Stat::query()
-        ->increment('projects_count');
+                Stat::query()
+            ->increment('projects_count');
     }
 
     /**
-     * Handle the Stat "updated" event.
+     * Handle the Project "updated" event.
      *
-     * @param  \App\Models\Stat  $Stat
+     * @param  \App\Models\Project  $project
      * @return void
      */
-    public function updated(Stat $Stat)
-    {
-        //
-    }
-
-    /**
-     * Handle the Stat "deleted" event.
-     *
-     * @param  \App\Models\Stat  $Stat
-     * @return void
-     */
-    public function deleted(Stat $Stat)
+    public function updated(Project $project)
     {
         //
     }
 
     /**
-     * Handle the Stat "restored" event.
+     * Handle the Project "deleted" event.
      *
-     * @param  \App\Models\Stat  $Stat
+     * @param  \App\Models\Project  $project
      * @return void
      */
-    public function restored(Stat $Stat)
+    public function deleted(Project $project)
     {
         //
     }
 
     /**
-     * Handle the Stat "force deleted" event.
+     * Handle the Project "restored" event.
      *
-     * @param  \App\Models\Stat  $Stat
+     * @param  \App\Models\Project  $project
      * @return void
      */
-    public function forceDeleted(Stat $Stat)
+    public function restored(Project $project)
+    {
+        //
+    }
+
+    /**
+     * Handle the Project "force deleted" event.
+     *
+     * @param  \App\Models\Project  $project
+     * @return void
+     */
+    public function forceDeleted(Project $project)
     {
         //
     }
