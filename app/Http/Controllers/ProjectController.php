@@ -52,6 +52,6 @@ class ProjectController extends Controller
         $project->name = $request->name;
         $project->save();
 
-        return ['success', 'Project created'];
+        return redirect('/')->with('success', 'Project created');
     }
 }
