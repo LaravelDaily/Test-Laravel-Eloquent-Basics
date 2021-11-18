@@ -75,21 +75,21 @@ class EloquentTest extends TestCase
         $response->assertRedirect();
     }
 
-    // public function test_mass_update_projects() {
-    //     $project = new Project();
-    //     $project->name = 'Old name';
-    //     $project->save();
+    public function test_mass_update_projects() {
+        $project = new Project();
+        $project->name = 'Old name';
+        $project->save();
 
-    //     $this->assertDatabaseHas('projects', ['name' => 'Old name']);
+        $this->assertDatabaseHas('projects', ['name' => 'Old name']);
 
-    //     $response = $this->post('projects/mass_update', [
-    //         'old_name' => 'Old name',
-    //         'new_name' => 'New name'
-    //     ]);
-    //     $response->assertRedirect();
-    //     $this->assertDatabaseMissing('projects', ['name' => 'Old name']);
-    //     $this->assertDatabaseHas('projects', ['name' => 'New name']);
-    // }
+        $response = $this->post('projects/mass_update', [
+            'old_name' => 'Old name',
+            'new_name' => 'New name'
+        ]);
+        $response->assertRedirect();
+        $this->assertDatabaseMissing('projects', ['name' => 'Old name']);
+        $this->assertDatabaseHas('projects', ['name' => 'New name']);
+    }
 
     // public function test_check_or_update_user() {
     //     $response = $this->get('users/check_update/john/john@john.com');
