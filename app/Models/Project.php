@@ -9,4 +9,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Project extends Model
 {
     use HasFactory, SoftDeletes;
+
+    protected $fillable = ['name'];
+
+    protected static function booted()
+    {
+        static::creating(function($project) {
+            Stat::first()->increment('projects_count');
+        });
+    }
 }

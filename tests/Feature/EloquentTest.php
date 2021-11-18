@@ -115,6 +115,7 @@ class EloquentTest extends TestCase
         $response = $this->delete('users', [
             'users' => [1, 2, 3]
         ]);
+
         $response->assertRedirect();
         $this->assertDatabaseCount('users', 1);
     }
@@ -142,6 +143,7 @@ class EloquentTest extends TestCase
         $this->post('projects/stats', ['name' => 'Some name']);
 
         $statsRow = Stat::first();
+        
         $this->assertEquals(1, $statsRow->projects_count);
     }
 }
