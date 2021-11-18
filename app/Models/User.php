@@ -43,8 +43,7 @@ class User extends Authenticatable
     ];
 
 
-    public function active()
-    {
-        return static::whereNotNull("email_verified_at");
+    public function scopeActive($query) {
+        $query->whereNotNull('email_verified_at');
     }
 }
