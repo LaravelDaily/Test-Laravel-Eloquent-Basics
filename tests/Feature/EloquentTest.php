@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\Models\Morningnews;
+use App\Models\MorningNews;
 use App\Models\Project;
 use App\Models\Stat;
 use App\Models\User;
@@ -17,7 +17,7 @@ class EloquentTest extends TestCase
     public function test_create_model_incorrect_table()
     {
         $article = ['title' => 'Something', 'news_text' => 'Something'];
-        Morningnews::create($article);
+        MorningNews::create($article);
 
         $this->assertDatabaseHas('morning_news', $article);
     }
