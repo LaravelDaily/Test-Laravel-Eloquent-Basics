@@ -17,14 +17,14 @@ class UserController extends Controller
         //   limit 3
 
 
-        $users = User::whereNotNull('email_verified_at')->orderBy('dsa','desc')->limit(3)->get();  // replace this with Eloquent statement
+        $users = User::whereNotNull('email_verified_at')->orderBy('created_at','desc')->limit(3)->get();  // replace this with Eloquent statement
 
         return view('users.index', compact('users'));
     }
 
     public function show($userId)
     {
-        $user = User::findOrFail($userId)->get();  // TASK: find user by $userId or show "404 not found" page
+        $user = User::where('id', $userId)->firstOrFail();  // TASK: find user by $userId or show "404 not found" page
 
         return view('users.show', compact('user'));
     }
@@ -47,9 +47,11 @@ class UserController extends Controller
     {
         // TASK: find a user by $name and update it with $email
         //   if not found, create a user with $name, $email and random password
-        $user =  User::firstOrCreate([
+        $user = User::firstOrCreate([
             'name' => $name,
+            'email' => $email,
         ],[
+            'name' => $name,
             'email' => $email,
             'password' => Hash::make('password'),
         ]); // updated or created user
@@ -65,7 +67,7 @@ class UserController extends Controller
 
         // Insert Eloquent statement here
         foreach ($request->users as $user) {
-            $user->delete();
+            User::where('id', $user)->delete();
         }
 
         return redirect('/')->with('success', 'Users deleted');
@@ -75,6 +77,8 @@ class UserController extends Controller
     {
         // TASK: That "active()" doesn't exist at the moment.
         //   Create this scope to filter "where email_verified_at is not null"
+
+//        dd(User::active());
         $users = User::active()->get();
 
         return view('users.index', compact('users'));

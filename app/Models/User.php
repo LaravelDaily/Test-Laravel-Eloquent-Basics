@@ -42,8 +42,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function active()
+    public static function active()
     {
-        return $this->email_verified_at !== NULL ;
+        return User::whereNotNull('email_verified_at') ;
     }
 }
