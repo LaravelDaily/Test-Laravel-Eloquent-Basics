@@ -75,6 +75,8 @@ In `app/Http/Controllers/ProjectController.php` file method `mass_update()`, wri
 
 ```
 update projects set name = $request->new_name where name = $request->old_name
+
+
 ```
 
 Test method `test_mass_update_projects()`.
