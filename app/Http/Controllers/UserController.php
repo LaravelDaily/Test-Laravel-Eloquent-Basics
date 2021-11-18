@@ -22,8 +22,7 @@ class UserController extends Controller
 
     public function show($userId)
     {
-        $user =User::findOrFail($userId)->get(); // TASK: find user by $userId or show "404 not found" page
-        dd($user);
+        $user =User::findOrFail($userId); // TASK: find user by $userId or show "404 not found" page
         return view('users.show', compact('user'));
     }
 
