@@ -7,6 +7,8 @@ use App\Models\Project;
 use App\Models\Stat;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Tests\TestCase;
 
 class EloquentTest extends TestCase
@@ -98,13 +100,20 @@ class EloquentTest extends TestCase
             'name' => 'john',
             'email' => 'john@john.com'
         ]);
+        $user = User::first();
+        // Make sure a password was generated.
+        $this->assertNotNull($user->password);
+        // Change the user's password to check if it will change later.
+        $user->fill(['password' => Hash::make(Str::random())])->save();
 
         // Same parameters - should NOT create a new user
         $this->get('users/check_update/john/john2@john.com');
         $this->assertDatabaseHas('users', [
             'name' => 'john',
-            'email' => 'john2@john.com'
+            'email' => 'john2@john.com',
+            'password' => $user->password // The user's password shouldn't have changed, only the email should.
         ]);
+        $this->assertDatabaseCount('users', 1);
     }
 
     public function test_mass_delete_users()
