@@ -129,13 +129,13 @@ class EloquentTest extends TestCase
         $response->assertSee('Some name');
     }
 
-    // public function test_active_users()
-    // {
-    //     $user = User::factory()->create(['email_verified_at' => NULL]);
+    public function test_active_users()
+    {
+        $user = User::factory()->create(['email_verified_at' => NULL]);
 
-    //     $response = $this->get('users/active');
-    //     $response->assertDontSee($user->name);
-    // }
+        $response = $this->get('users/active');
+        $response->assertDontSee($user->name);
+    }
 
     // public function test_insert_observer()
     // {
