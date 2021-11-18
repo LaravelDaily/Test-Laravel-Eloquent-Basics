@@ -36,8 +36,7 @@ class ProjectController extends Controller
 
     public function store_with_stats(Request $request)
     {
-        // TASK: on creating a new project, create an Observer event to run SQL
-        //   update stats set projects_count = projects_count + 1
+        print("salut");
         $project = new Project();
         $project->name = $request->name;
         $project->save();
