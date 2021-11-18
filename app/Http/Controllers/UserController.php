@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -32,16 +33,12 @@ class UserController extends Controller
     {
         // TASK: find a user by $name and $email
         //   if not found, create a user with $name, $email and random password
-        $user = User::where(['name'=>$name,'email'=>$email])->first();
-
-        if(!$user){
-            $password = $random = Str::random(8);
-            User::create([
-                'name' => $name,
-                'email' => $email,
-                'password' => $password,
-            ]);
-        }
+        $user = User::firstOrCreate([
+            'name' => $name,
+            'email' => $email,
+        ],[
+            'password' => Hash::make(Str::random()),
+        ]);
 
 
         return view('users.show', compact('user'));

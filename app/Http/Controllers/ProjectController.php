@@ -1,3 +1,4 @@
+
 <?php
 
 namespace App\Http\Controllers;
@@ -26,7 +27,7 @@ class ProjectController extends Controller
         //   where name = $request->old_name
 
         // Insert Eloquent statement below
-        User::where('name',$request->old_name)->update([
+        Project::where('name',$request->old_name)->update([
             'name' => $request->new_name,
         ]);
 
