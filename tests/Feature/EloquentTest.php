@@ -137,11 +137,11 @@ class EloquentTest extends TestCase
         $response->assertDontSee($user->name);
     }
 
-    // public function test_insert_observer()
-    // {
-    //     $this->post('projects/stats', ['name' => 'Some name']);
+    public function test_insert_observer()
+    {
+        $this->post('projects/stats', ['name' => 'Some name']);
 
-    //     $statsRow = Stat::first();
-    //     $this->assertEquals(1, $statsRow->projects_count);
-    // }
+        $statsRow = Stat::first();
+        $this->assertEquals(1, $statsRow->projects_count);
+    }
 }
