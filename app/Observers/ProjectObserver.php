@@ -15,7 +15,7 @@ class ProjectObserver
      */
     public function created(Project $project)
     {
-        Stat::increment('projects_count', extra: ['users_count' => 1]);
+        (new Stat)->increment('projects_count', extra: ['users_count' => 1]);
     }
 
     /**
