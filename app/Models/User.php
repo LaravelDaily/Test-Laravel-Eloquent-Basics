@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -48,5 +49,10 @@ class User extends Authenticatable
         parent::boot();
 
         static::creating(fn(User $user) => $user->password = Hash::make(Str::random()));
+    }
+
+    public function scopeActive(Builder $query)
+    {
+        return $query->whereNotNull('email_verified_at');
     }
 }
