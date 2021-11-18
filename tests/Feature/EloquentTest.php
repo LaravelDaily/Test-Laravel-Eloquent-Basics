@@ -27,7 +27,7 @@ class EloquentTest extends TestCase
     {
         $user1 = User::factory()->create(['created_at' => now()->subMinutes(5)]);
         $user2 = User::factory()->create(['created_at' => now()->subMinutes(4)]);
-        $user3 = User::factory()->create(['created_at' => now()->subMinutes(3), 'email_verified_at' => NULL]);
+        $user3 = User::factory()->create(['created_at' => now()->subMinutes(3), 'email_verified_at' => null]);
         $user4 = User::factory()->create(['created_at' => now()->subMinutes(2)]);
         $user5 = User::factory()->create(['created_at' => now()->subMinute()]);
 
@@ -70,12 +70,14 @@ class EloquentTest extends TestCase
         $this->assertDatabaseCount('users', 1);
     }
 
-    public function test_create_project() {
+    public function test_create_project()
+    {
         $response = $this->post('projects', ['name' => 'Some name']);
         $response->assertRedirect();
     }
 
-    public function test_mass_update_projects() {
+    public function test_mass_update_projects()
+    {
         $project = new Project();
         $project->name = 'Old name';
         $project->save();
@@ -91,7 +93,8 @@ class EloquentTest extends TestCase
         $this->assertDatabaseHas('projects', ['name' => 'New name']);
     }
 
-    public function test_check_or_update_user() {
+    public function test_check_or_update_user()
+    {
         $response = $this->get('users/check_update/john/john@john.com');
         $response->assertStatus(200);
         $this->assertDatabaseHas('users', [
@@ -131,7 +134,7 @@ class EloquentTest extends TestCase
 
     public function test_active_users()
     {
-        $user = User::factory()->create(['email_verified_at' => NULL]);
+        $user = User::factory()->create(['email_verified_at' => null]);
 
         $response = $this->get('users/active');
         $response->assertDontSee($user->name);
