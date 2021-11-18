@@ -4,16 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Str;
 
 class UserController extends Controller
 {
     public function index()
     {
-        $users = User::whereNotNull('email_verified_at')
-            ->orderByDesc('created_at')
-            ->take(3)
-            ->get();
+        $users = User::active()->orderByDesc('created_at')->take(3)->get();
 
         return view('users.index', compact('users'));
     }
@@ -27,13 +25,13 @@ class UserController extends Controller
 
     public function check_create($name, $email)
     {
-        $user = User::firstOrCreate(compact('name', 'email'), ['password' => Str::random()]);
+        $user = User::firstOrCreate(compact('name', 'email'), ['password' => Hash::make(Str::random())]);
         return view('users.show', compact('user'));
     }
 
     public function check_update($name, $email)
     {
-        $user = User::firstOrNew(compact('name'), ['password' => Str::random()]);
+        $user = User::firstOrNew(compact('name'), ['password' => Hash::make(Str::random())]);
         $user->fill(compact('email'))->save();
 
         return view('users.show', compact('user'));
