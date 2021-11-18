@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -15,14 +16,17 @@ class UserController extends Controller
         //   order by created_at desc
         //   limit 3
 
-        $users = User::all(); // replace this with Eloquent statement
+        $users = User::whereNotNull('email_verified_at')
+                    ->orderBy('created_at', 'desc')
+                    ->limit(3)
+                    ->get(); // replace this with Eloquent statement
 
         return view('users.index', compact('users'));
     }
 
     public function show($userId)
     {
-        $user = NULL; // TASK: find user by $userId or show "404 not found" page
+        $user = User::findOrFail($userId); // TASK: find user by $userId or show "404 not found" page
 
         return view('users.show', compact('user'));
     }
@@ -31,7 +35,10 @@ class UserController extends Controller
     {
         // TASK: find a user by $name and $email
         //   if not found, create a user with $name, $email and random password
-        $user = NULL;
+        $user = User::firstOrCreate(
+            ['name' => $name, 'email' => $email],
+            ['password' => Hash::make('random')]
+        );
 
         return view('users.show', compact('user'));
     }
@@ -40,7 +47,29 @@ class UserController extends Controller
     {
         // TASK: find a user by $name and update it with $email
         //   if not found, create a user with $name, $email and random password
-        $user = NULL; // updated or created user
+        
+        $user = User::firstOrCreate(
+            ['name' => $name],
+            ['password' => Hash::make('random'), 'email' => $email]
+        );
+        
+        $user->email = $email;
+        $user->save();
+
+        
+        /*
+        $user = User::updateOrCreate(
+            ['name' => $name],
+            ['email' => $email]
+        ); // updated or created user
+        */
+        
+        /*
+        Flight::upsert([
+            ['departure' => 'Oakland', 'destination' => 'San Diego', 'price' => 99],
+            ['departure' => 'Chicago', 'destination' => 'New York', 'price' => 150]
+        ], ['departure', 'destination'], ['price']);
+        */
 
         return view('users.show', compact('user'));
     }
@@ -50,6 +79,9 @@ class UserController extends Controller
         // TASK: delete multiple users by their IDs
         // SQL: delete from users where id in ($request->users)
         // $request->users is an array of IDs, ex. [1, 2, 3]
+        
+        //User::whereIn('id', $request->users)->delete();//это тоже работает
+        User::destroy($request->users);
 
         // Insert Eloquent statement here
 
