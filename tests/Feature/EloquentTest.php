@@ -91,21 +91,21 @@ class EloquentTest extends TestCase
         $this->assertDatabaseHas('projects', ['name' => 'New name']);
     }
 
-    // public function test_check_or_update_user() {
-    //     $response = $this->get('users/check_update/john/john@john.com');
-    //     $response->assertStatus(200);
-    //     $this->assertDatabaseHas('users', [
-    //         'name' => 'john',
-    //         'email' => 'john@john.com'
-    //     ]);
+    public function test_check_or_update_user() {
+        $response = $this->get('users/check_update/john/john@john.com');
+        $response->assertStatus(200);
+        $this->assertDatabaseHas('users', [
+            'name' => 'john',
+            'email' => 'john@john.com'
+        ]);
 
-    //     // Same parameters - should NOT create a new user
-    //     $this->get('users/check_update/john/john2@john.com');
-    //     $this->assertDatabaseHas('users', [
-    //         'name' => 'john',
-    //         'email' => 'john2@john.com'
-    //     ]);
-    // }
+        // Same parameters - should NOT create a new user
+        $this->get('users/check_update/john/john2@john.com');
+        $this->assertDatabaseHas('users', [
+            'name' => 'john',
+            'email' => 'john2@john.com'
+        ]);
+    }
 
     // public function test_mass_delete_users()
     // {
