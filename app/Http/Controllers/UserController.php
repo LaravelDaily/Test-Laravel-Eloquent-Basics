@@ -2,67 +2,55 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\Project;
+use App\Models\Stat;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class ProjectController extends Controller
 {
-    public function index()
+    public function store(Request $request)
     {
-        // TASK: turn this SQL query into Eloquent
-        // select * from users
-        //   where email_verified_at is not null
-        //   order by created_at desc
-        //   limit 3
+        // TASK: Currently this statement fails. Fix the underlying issue.
+        Project::create([
+            'name' => $request->name
+        ]);
 
-        $users = User::all(); // replace this with Eloquent statement
-
-        return view('users.index', compact('users'));
+        return redirect('/')->with('success', 'Project created');
     }
 
-    public function show($userId)
+    public function mass_update(Request $request)
     {
-        $user = NULL; // TASK: find user by $userId or show "404 not found" page
+        // TASK: Transform this SQL query into Eloquent
+        // update projects
+        //   set name = $request->new_name
+        //   where name = $request->old_name
 
-        return view('users.show', compact('user'));
+        // Insert Eloquent statement below
+        $projets = Project::where('name',$request->old_name)
+            ->update(['name'=>$request->new_name]);
+
+        return redirect('/')->with('success', 'Projects updated');
     }
 
-    public function check_create($name, $email)
+    public function destroy($projectId)
     {
-        // TASK: find a user by $name and $email
-        //   if not found, create a user with $name, $email and random password
-        $user = NULL;
+        Project::destroy($projectId);
 
-        return view('users.show', compact('user'));
+        // TASK: change this Eloquent statement to include the soft-deletes records
+        $projects = Project::withTrashed()->get();
+
+        return view('projects.index', compact('projects'));
     }
 
-    public function check_update($name, $email)
+    public function store_with_stats(Request $request)
     {
-        // TASK: find a user by $name and update it with $email
-        //   if not found, create a user with $name, $email and random password
-        $user = NULL; // updated or created user
+        // TASK: on creating a new project, create an Observer event to run SQL
+        //   update stats set projects_count = projects_count + 1
+        $project = new Project();
+        $project->name = $request->name;
+        $project->save();
 
-        return view('users.show', compact('user'));
-    }
-
-    public function destroy(Request $request)
-    {
-        // TASK: delete multiple users by their IDs
-        // SQL: delete from users where id in ($request->users)
-        // $request->users is an array of IDs, ex. [1, 2, 3]
-
-        // Insert Eloquent statement here
-
-        return redirect('/')->with('success', 'Users deleted');
-    }
-
-    public function only_active()
-    {
-        // TASK: That "active()" doesn't exist at the moment.
-        //   Create this scope to filter "where email_verified_at is not null"
-        $users = User::active()->get();
-
-        return view('users.index', compact('users'));
+        return redirect('/')->with('success', 'Project created');
     }
 
 }
