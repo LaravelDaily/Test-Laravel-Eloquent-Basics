@@ -2,55 +2,87 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Project;
-use App\Models\Stat;
+use App\Models\User;
 use Illuminate\Http\Request;
 
-class ProjectController extends Controller
+class UserController extends Controller
 {
-    public function store(Request $request)
+    public function index()
     {
-        // TASK: Currently this statement fails. Fix the underlying issue.
-        Project::create([
-            'name' => $request->name
-        ]);
-
-        return redirect('/')->with('success', 'Project created');
+        // TASK: turn this SQL query into Eloquent
+        // select * from users
+        //   where email_verified_at is not null
+        //   order by created_at desc
+        //   limit 3
+//        $users = User::all();
+        $users = User::whereNotNull('email_verified_at')->orderByDesc('created_at')->limit(3)->get(); // replace this with Eloquent statement
+        //dd($users);
+        return view('users.index', compact('users'));
     }
 
-    public function mass_update(Request $request)
+    public function show($userId)
     {
-        // TASK: Transform this SQL query into Eloquent
-        // update projects
-        //   set name = $request->new_name
-        //   where name = $request->old_name
+        $user = User::findOrFail($userId); // TASK: find user by $userId or show "404 not found" page
 
-        // Insert Eloquent statement below
-        $projets = Project::where('name',$request->old_name)
-            ->update(['name'=>$request->new_name]);
-
-        return redirect('/')->with('success', 'Projects updated');
+        return view('users.show', compact('user'));
     }
 
-    public function destroy($projectId)
+    public function check_create($name, $email)
     {
-        Project::destroy($projectId);
+        // TASK: find a user by $name and $email
+        //   if not found, create a user with $name, $email and random password
+        $user = User::firstOrCreate(
+            [
+                'name'=>$name,
+                'email'=>$email
+            ],
+            [
+                'name'=>$name,
+                'email'=>$email,
+                'password'=>'password'
+            ],
+        );
 
-        // TASK: change this Eloquent statement to include the soft-deletes records
-        $projects = Project::withTrashed()->get();
-
-        return view('projects.index', compact('projects'));
+        return view('users.show', compact('user'));
     }
 
-    public function store_with_stats(Request $request)
+    public function check_update($name, $email)
     {
-        // TASK: on creating a new project, create an Observer event to run SQL
-        //   update stats set projects_count = projects_count + 1
-        $project = new Project();
-        $project->name = $request->name;
-        $project->save();
+        // TASK: find a user by $name and update it with $email
+        //   if not found, create a user with $name, $email and random password
+        $user = User::updateOrCreate(
+            [
+                'name'=>$name,
+                'email'=>$email
+            ],
+            [
+                'name'=>$name,
+                'email'=>$email,
+                'password'=>'password'
+            ],
+        );; // updated or created user
 
-        return redirect('/')->with('success', 'Project created');
+        return view('users.show', compact('user'));
+    }
+
+    public function destroy(Request $request)
+    {
+        // TASK: delete multiple users by their IDs
+        // SQL: delete from users where id in ($request->users)
+        // $request->users is an array of IDs, ex. [1, 2, 3]
+
+        // Insert Eloquent statement here
+        User::destroy($request->users);
+        return redirect('/')->with('success', 'Users deleted');
+    }
+
+    public function only_active()
+    {
+        // TASK: That "active()" doesn't exist at the moment.
+        //   Create this scope to filter "where email_verified_at is not null"
+        $users = User::active()->get();
+
+        return view('users.index', compact('users'));
     }
 
 }
