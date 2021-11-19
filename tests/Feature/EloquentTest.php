@@ -145,3 +145,4 @@ class EloquentTest extends TestCase
         $this->assertEquals(1, $statsRow->projects_count);
     }
 }
+
