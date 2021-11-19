@@ -22,14 +22,14 @@ Route::get('/', function () {
 // NOTICE: Not all the routes are logical and would exist in a real Laravel project
 // Some routes are just for the purpose of replicating some testing scenario
 
-Route::get('users', [UserController::class, 'index']);
-Route::get('users/active', [UserController::class, 'only_active']);
-Route::get('users/{userId}', [UserController::class, 'show']);
-Route::get('users/check/{name}/{email}', [UserController::class, 'check_create']);
-Route::get('users/check_update/{name}/{email}', [UserController::class, 'check_update']);
-Route::delete('users', [UserController::class, 'destroy']);
+Route::get('users', [UserController::class, 'index']); // done
+Route::get('users/active', [UserController::class, 'onlyActive']); // done
+Route::get('users/{userId}', [UserController::class, 'show']); // done
+Route::get('users/check/{name}/{email}', [UserController::class, 'checkCreate']); // done
+Route::get('users/check_update/{name}/{email}', [UserController::class, 'checkUpdate']); // done
+Route::delete('users', [UserController::class, 'destroy']); // done
 
-Route::post('projects', [ProjectController::class, 'store']);
-Route::post('projects/stats', [ProjectController::class, 'store_with_stats']);
-Route::post('projects/mass_update', [ProjectController::class, 'mass_update']);
-Route::delete('projects/{projectId}', [ProjectController::class, 'destroy']);
+Route::post('projects', [ProjectController::class, 'store']); // done
+Route::post('projects/stats', [ProjectController::class, 'store_with_stats']); // done
+Route::post('projects/mass_update', [ProjectController::class, 'mass_update']); // done
+Route::delete('projects/{projectId}', [ProjectController::class, 'destroy']); // done
