@@ -36,7 +36,11 @@ class UserController extends Controller
     {
         // TASK: find a user by $name and $email
         //   if not found, create a user with $name, $email and random password
-        $user = NULL;
+        $user = User::firstOrCreate([
+            'name' => $name,
+            'email' => $email,
+            'password' => Hash::make(Str::random(10)),
+        ]);
 
         return view('users.show', compact('user'));
     }
@@ -45,11 +49,13 @@ class UserController extends Controller
     {
         // TASK: find a user by $name and update it with $email
         //   if not found, create a user with $name, $email and random password
-        $user = User::firstOrCreate([
+        $user = User::updateOrCreate([
+           'name' => $name, 
+        ], [
             'name' => $name,
             'email' => $email,
             'password' => Hash::make(Str::random(10)),
-        ]); // updated or created user
+        ]);// updated or created user
 
         return view('users.show', compact('user'));
     }
