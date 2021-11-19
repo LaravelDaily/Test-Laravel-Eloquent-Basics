@@ -41,4 +41,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /* Filter Active Scope */
+    public function scopeActive(){
+        return $this->whereNotNull('email_verified_at');
+    }
 }
