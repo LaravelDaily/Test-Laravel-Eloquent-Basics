@@ -17,6 +17,7 @@ class User extends Authenticatable
      *
      * @var string[]
      */
+    // protected $table = 'users';
     protected $fillable = [
         'name',
         'email',
@@ -41,4 +42,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function ScopeActive()
+    {
+        return $this->whereNotNull('email_verified_at');
+    }
 }
