@@ -22,6 +22,7 @@ class EloquentTest extends TestCase
         $this->assertDatabaseHas('morning_news', $article);
     }
 
+    
     // TASK: Write Eloquent query to return the newest 3 verified users
     public function test_get_filtered_list()
     {
@@ -142,6 +143,7 @@ class EloquentTest extends TestCase
         $this->post('projects/stats', ['name' => 'Some name']);
 
         $statsRow = Stat::first();
+        
         $this->assertEquals(1, $statsRow->projects_count);
     }
 }
