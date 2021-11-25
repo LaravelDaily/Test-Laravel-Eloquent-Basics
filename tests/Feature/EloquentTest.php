@@ -142,6 +142,7 @@ class EloquentTest extends TestCase
         $this->post('projects/stats', ['name' => 'Some name']);
 
         $statsRow = Stat::first();
+
         $this->assertEquals(1, $statsRow->projects_count);
     }
 }
