@@ -15,7 +15,7 @@ class UserController extends Controller
         //   order by created_at desc
         //   limit 3
 
-        $users = User::whereNotNull('email_verified')->latest()->take(3)->get();
+        $users = User::whereNotNull('email_verified_at')->latest()->take(3)->get();
 
         return view('users.index', compact('users'));
     }
