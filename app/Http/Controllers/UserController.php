@@ -59,8 +59,6 @@ class UserController extends Controller
 
         // Insert Eloquent statement here
         User::destroy($request->users);
-        
-        User::history()->restore();
 
         return redirect('/')->with('success', 'Users deleted');
     }
