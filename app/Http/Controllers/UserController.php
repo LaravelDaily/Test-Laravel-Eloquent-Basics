@@ -85,10 +85,4 @@ class UserController extends Controller
 
         return view('users.index', compact('users'));
     }
-
-    public function scopeActive($query)
-    {
-        return $query->whereNotNull('email_verified_at');
-    }
-
 }
