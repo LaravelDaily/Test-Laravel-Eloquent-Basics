@@ -10,4 +10,13 @@ class Stat extends Model
     use HasFactory;
 
     protected $fillable = ['users_count', 'projects_count'];
+
+    protected static function boot()
+    {
+        parent::boot();
+        static::created(function ($project) {
+            $project->projects_count += 1;
+            $project->save();
+        });
+    }
 }
