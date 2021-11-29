@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Project;
 use App\Models\Stat;
 use Illuminate\Http\Request;
+use App\Events\ProjectCreated;
 
 class ProjectController extends Controller
 {
@@ -49,6 +50,8 @@ class ProjectController extends Controller
         $project = new Project();
         $project->name = $request->name;
         $project->save();
+
+        ProjectCreated::dispatch($project);
 
         return redirect('/')->with('success', 'Project created');
     }
