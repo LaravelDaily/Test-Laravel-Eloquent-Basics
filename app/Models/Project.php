@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Events\ProjectCreated;
 
 class Project extends Model
 {
@@ -13,6 +14,6 @@ class Project extends Model
     protected $fillable = ['name'];
 
     protected $dispatchesEvents = [
-        'created' => App\Events\ProjectCreated::class,
+        'created' => ProjectCreated::class,
     ];
 }
