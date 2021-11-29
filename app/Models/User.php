@@ -44,6 +44,6 @@ class User extends Authenticatable
 
     public function scopeActive($query)
     {
-        return $query->whereNotNull('email_verified_at')->get();
+        return $query->where('email_verified_at', '<>', null);
     }
 }
