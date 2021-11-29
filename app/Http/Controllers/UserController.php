@@ -59,7 +59,7 @@ class UserController extends Controller
                 'email' => $email,
             ]);
         } else {
-            $user::first()->update(['email' => $email]);
+            $user->first()->update(['email' => $email]);
         }
 
         return view('users.show', compact('user'));
