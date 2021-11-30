@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProjectsTable extends Migration
+class SoftDeletedProjectsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreateProjectsTable extends Migration
      */
     public function up()
     {
-        Schema::create('projects', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->timestamps();
-            $table->softDeletes();
-            // $table->dropSoftDeletes();
-        });
+        // Schema::table('projects', function (Blueprint $table) {
+        //     $table->softDeletes();
+        // });
+
+        // Schema::table('projects', function (Blueprint $table) {
+        //     $table->dropSoftDeletes();
+        // });
     }
 
     /**
@@ -29,6 +29,6 @@ class CreateProjectsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('projects');
+        //
     }
 }
