@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
-use App\Models\Stat;
-use GuzzleHttp\Handler\Proxy;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
