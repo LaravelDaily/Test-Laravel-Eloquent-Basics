@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Project;
 use App\Models\Stat;
+use App\Models\Project;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProjectController extends Controller
 {
     public function store(Request $request)
     {
         // TASK: Currently this statement fails. Fix the underlying issue.
-        Project::create([
+        $project = Project::create([
             'name' => $request->name
         ]);
 
@@ -26,13 +27,15 @@ class ProjectController extends Controller
         //   where name = $request->old_name
 
         // Insert Eloquent statement below
-
+        Project::where('name',$request->old_name)->update([
+            'name'=>$request->new_name
+        ]);
         return redirect('/')->with('success', 'Projects updated');
     }
 
     public function destroy($projectId)
     {
-        Project::destroy($projectId);
+        Project::destroy($projectId)->softDeletes();
 
         // TASK: change this Eloquent statement to include the soft-deletes records
         $projects = Project::all();
