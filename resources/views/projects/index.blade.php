@@ -5,9 +5,9 @@
     </tr>
     </thead>
     <tbody>
-    @foreach ($projects as $project)
+    @foreach ($projects as $key => $project)
         <tr>
-            <td>{{ $loop->iteration }}. {{ $project->name }}</td>
+            <td>{{ $key+1 }}. {{ $project->name }}</td>
         </tr>
     @endforeach
     </tbody>
