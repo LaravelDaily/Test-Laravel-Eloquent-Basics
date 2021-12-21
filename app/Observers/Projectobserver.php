@@ -7,22 +7,16 @@ use App\Models\Stat;
 
 class ProjectObserver
 {
-
-    public $afterCommit = true;
-
     /**
      * Handle the Project "created" event.
      *
      * @param  \App\Models\Project  $project
      * @return void
      */
-    public function created(Project $project)
+	public function created(Project $project)
     {
-        // TASK: on creating a new project, create an Observer event to run SQL
-        //   update stats set projects_count = projects_count + 1
-        print("salut");
-        Stat::increment('projects_count', 1);
-	}
+        Stat::first()->increment('projects_count');
+    }
 
     /**
      * Handle the Project "updated" event.

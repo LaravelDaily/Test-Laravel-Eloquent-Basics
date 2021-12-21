@@ -28,7 +28,7 @@ class UserController extends Controller
     public function show($id)
     {
         //$user = NULL; // TASK: find user by $userId or show "404 not found" page
-		$user = User::where('id',$id)->first();
+		$user = User::findOrFail($id);
 		
          return view('users.show', compact('user'));
     }
@@ -36,25 +36,28 @@ class UserController extends Controller
     public function check_create($name, $email)
     {
 		
-		
+		 
+
         // TASK: find a user by $name and $email
         //   if not found, create a user with $name, $email and random password
-         $user = User::where('name', '=', $name)->where('email', '=', $email)->firstOrCreate(
+         //$user = NULL;
+        $user = User::firstOrCreate(
+            ['name' => $name],
             [
-                'name' => $name,
                 'email' => $email,
-                'password' => Hash::make(Str::random(10)),
+                'password' => 'password'
             ]
 
         );
-        return view('users.show',  compact('user'));
+
+        return view('users.show', compact('user'));
     }
 
     public function check_update($name, $email)
     {
         // TASK: find a user by $name and update it with $email
         //   if not found, create a user with $name, $email and random password
-       // $user = NULL; // updated or created user
+       $user = NULL; // updated or created user
 	   
 	   $user = User::UpdateOrCreate(
             [

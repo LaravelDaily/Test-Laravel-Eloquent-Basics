@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Project;
 use App\Models\Stat;
+//use GuzzleHttp\Handler\Proxy;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
@@ -11,17 +12,13 @@ class ProjectController extends Controller
     public function store(Request $request)
     {
         // TASK: Currently this statement fails. Fix the underlying issue.
-		 $this->validate($request, [
-            'name' => 'required|max:255',
-  
-        ]);
-
-
-		project::create([
-            'name' => $request['name'],
-          
-	
-    ]);
+        $project = Project::create([
+            'name' => $request->name
+		])->save(); 
+		
+		/*  $project = new Project();
+        $project->name = $request->name;
+        $project->save(); */
 
         return redirect('/')->with('success', 'Project created');
     }
@@ -35,9 +32,8 @@ class ProjectController extends Controller
 
         // Insert Eloquent statement below
 		
-		Project::where('name', '=', $request->old_name)
+		 	  Project::where('name', $request->old_name)
             ->update(['name' => $request->new_name]);
-
 
         return redirect('/')->with('success', 'Projects updated');
     }
@@ -45,20 +41,23 @@ class ProjectController extends Controller
     public function destroy($id)
     {
        Project::destroy($id);
+
         // TASK: change this Eloquent statement to include the soft-deletes records
-        $projects = Project::withTrashed()->get();
+       // $projects = Project::all();
+	   $projects = Project::find($id);
+		$projects->where('id', $id)->delete();
+        //$projects = Project::withTrashed()->get();
+
         return view('projects.index', compact('projects'));
     }
-
     public function store_with_stats(Request $request)
     {
         // TASK: on creating a new project, create an Observer event to run SQL
         //   update stats set projects_count = projects_count + 1
-        $project = new Project();
-        $project->name = $request->name;
-        $project->save();
-
+  
         return redirect('/')->with('success', 'Project created');
+	
     }
+
 
 }

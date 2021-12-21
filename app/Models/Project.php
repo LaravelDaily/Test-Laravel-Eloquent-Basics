@@ -21,8 +21,13 @@ class Project extends Model
         'name',
         
     ];
+	
 	protected $hidden = [
         'remember_token',
     ];
 
+	protected static function boot()
+    {
+        parent::boot();
+    }
 }
