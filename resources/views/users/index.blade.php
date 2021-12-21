@@ -6,9 +6,9 @@
         </tr>
     </thead>
     <tbody>
-    @foreach ($users as $user)
+    @foreach ($users as $key => $user)
         <tr>
-            <td>{{ $loop->iteration }}. {{ $user->name }}</td>
+            <td>{{ $key+1 }}. {{ $user->name }}</td>
             <td>{{ $user->email }}</td>
         </tr>
     @endforeach
