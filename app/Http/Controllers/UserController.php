@@ -25,10 +25,11 @@ class UserController extends Controller
         return view('users.index', compact('users'));
     }
 
-    public function show($id)
+    public function show($userId)
     {
         //$user = NULL; // TASK: find user by $userId or show "404 not found" page
-		$user = User::findOrFail($id);
+		 $user = User::findOrFail($userId);
+		 
 		
          return view('users.show', compact('user'));
     }
@@ -79,7 +80,9 @@ class UserController extends Controller
         // $request->users is an array of IDs, ex. [1, 2, 3]
 
         // Insert Eloquent statement here
-		 User::destroy($request->users);
+		User::whereIn('id', $request->users)
+            ->delete();
+			
 
         return redirect('/')->with('success', 'Users deleted');
     }

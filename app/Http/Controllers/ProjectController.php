@@ -6,19 +6,22 @@ use App\Models\Project;
 use App\Models\Stat;
 //use GuzzleHttp\Handler\Proxy;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProjectController extends Controller
 {
     public function store(Request $request)
     {
         // TASK: Currently this statement fails. Fix the underlying issue.
+
         $project = Project::create([
             'name' => $request->name
-		])->save(); 
-		
-		/*  $project = new Project();
+        ]);
+
+
+		/* $project = new Project();
         $project->name = $request->name;
-        $project->save(); */
+        $project->save(); */ 
 
         return redirect('/')->with('success', 'Project created');
     }
@@ -32,21 +35,23 @@ class ProjectController extends Controller
 
         // Insert Eloquent statement below
 		
-		 	  Project::where('name', $request->old_name)
+			
+			DB::table('projects')
+            ->where('name', $request->old_name)
             ->update(['name' => $request->new_name]);
 
         return redirect('/')->with('success', 'Projects updated');
     }
 
-    public function destroy($id)
+    public function destroy($projectId)
     {
-       Project::destroy($id);
 
         // TASK: change this Eloquent statement to include the soft-deletes records
        // $projects = Project::all();
-	   $projects = Project::find($id);
-		$projects->where('id', $id)->delete();
-        //$projects = Project::withTrashed()->get();
+		
+		Project::destroy($projectId);
+		$projects = Project::withTrashed()
+            ->get();
 
         return view('projects.index', compact('projects'));
     }
