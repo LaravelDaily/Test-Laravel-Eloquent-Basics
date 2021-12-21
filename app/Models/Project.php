@@ -21,6 +21,7 @@ class Project extends Model
         'name',
         
     ];
+	protected $table = 'projects';
 	
 	protected $hidden = [
         'remember_token',
