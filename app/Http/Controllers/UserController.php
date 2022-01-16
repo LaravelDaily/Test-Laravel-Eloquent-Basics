@@ -15,14 +15,14 @@ class UserController extends Controller
         //   order by created_at desc
         //   limit 3
 
-        $users = User::all(); // replace this with Eloquent statement
+        $users = User::whereNOTNULL('email_verified_at')->orderBy('id','desc')->limit(3)->get(); // replace this with Eloquent statement
 
         return view('users.index', compact('users'));
     }
 
     public function show($userId)
     {
-        $user = NULL; // TASK: find user by $userId or show "404 not found" page
+        $user = findOrfail($userId); // TASK: find user by $userId or show "404 not found" page
 
         return view('users.show', compact('user'));
     }
@@ -31,7 +31,16 @@ class UserController extends Controller
     {
         // TASK: find a user by $name and $email
         //   if not found, create a user with $name, $email and random password
-        $user = NULL;
+        $user = User::where([['name', $name],
+            ['email', $email]])->first();
+
+        if(!$user) {
+            $user = User::create([
+                'name' => $name,
+                'email' => $email,
+                'password' => Hash::make('random')
+            ]);
+        }
 
         return view('users.show', compact('user'));
     }
@@ -40,7 +49,16 @@ class UserController extends Controller
     {
         // TASK: find a user by $name and update it with $email
         //   if not found, create a user with $name, $email and random password
-        $user = NULL; // updated or created user
+        $user = User::where('name',$name)->first();
+        if($user){
+            $user->update(['email'=>$email]);
+        }
+        else{
+            $user= User::create([
+                'name' => $name,
+                'email' => $email,
+                'password' => Hash::make('random')]);
+        }// updated or created user
 
         return view('users.show', compact('user'));
     }
@@ -52,6 +70,10 @@ class UserController extends Controller
         // $request->users is an array of IDs, ex. [1, 2, 3]
 
         // Insert Eloquent statement here
+        foreach($request->users as $id){
+            User::find($id)->delete();
+        }
+
 
         return redirect('/')->with('success', 'Users deleted');
     }
