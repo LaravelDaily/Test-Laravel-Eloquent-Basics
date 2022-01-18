@@ -22,7 +22,7 @@ class EloquentTest extends TestCase
         $this->assertDatabaseHas('morning_news', $article);
     }
 
-    // TASK: Write Eloquent query to return the newest 3 verified users
+//     TASK: Write Eloquent query to return the newest 3 verified users
     public function test_get_filtered_list()
     {
         $user1 = User::factory()->create(['created_at' => now()->subMinutes(5)]);
