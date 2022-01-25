@@ -12,6 +12,10 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    public function scopeActive($query)
+    {
+        return $query->where('email_verified_at', '!=', null);
+    }
     /**
      * The attributes that are mass assignable.
      *
