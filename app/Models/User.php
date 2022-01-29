@@ -41,4 +41,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public static function active(): \Illuminate\Database\Eloquent\Builder
+    {
+        return self::query()->whereNotNull('email_verified_at');
+    }
 }
