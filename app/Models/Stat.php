@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Observers\StatObserver;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
