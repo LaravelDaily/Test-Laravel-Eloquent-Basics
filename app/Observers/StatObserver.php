@@ -14,9 +14,9 @@ class StatObserver
      */
     public function created(Stat $stat)
     {
-        $stat = $stat->update([
-            'projects_count' => ($stat->projects_count)+1
-        ]);
+        // $stat = $stat->update([
+        //     'projects_count' => ($stat->projects_count)+1
+        // ]);
     }
 
     /**

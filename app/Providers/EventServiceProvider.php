@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Models\Stat;
+use App\Models\Project;
 use App\Observers\StatObserver;
+use App\Observers\ProjectObserver;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -29,6 +31,6 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Stat::observe(StatObserver::class);
+        Project::observe(ProjectObserver::class);
     }
 }
