@@ -42,7 +42,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public static function active($query){
-        return $query->where('active','1');
+    public function scopeActive($query){
+        return $query->where('email_verified_at','!=',null);
 }
 }

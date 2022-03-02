@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Project;
 use App\Models\Stat;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
@@ -46,9 +47,9 @@ class ProjectController extends Controller
     {
         // TASK: on creating a new project, create an Observer event to run SQL
         //   update stats set projects_count = projects_count + 1
-        $project = new Project();
-        $project->name = $request->name;
-        $project->save();
+        Project::create([
+            'name'=>'neo'
+            ]);
 
         return redirect('/')->with('success', 'Project created');
     }

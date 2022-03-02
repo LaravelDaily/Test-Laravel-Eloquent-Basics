@@ -6,7 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-use function PHPUnit\Framework\isEmpty;
+use Illuminate\Database\Eloquent\Builder as Query;
 
 class UserController extends Controller
 {
