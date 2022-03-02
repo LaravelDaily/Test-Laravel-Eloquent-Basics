@@ -26,7 +26,7 @@ class UserController extends Controller
 
     public function show($userId)
     {
-       $user = User::findOrFail($userId);// TASK: find user by $userId or show "404 not found" page
+        $user = User::findOrFail($userId);// TASK: find user by $userId or show "404 not found" page
         return view('users.show', compact('user'));
     }
 
@@ -34,15 +34,15 @@ class UserController extends Controller
     {
         // TASK: find a user by $name and $email
         //   if not found, create a user with $name, $email and random password
-        $user =  User::firstOrCreate(
+        $user = User::firstOrCreate(
             [
-                'name'=>$name,
-                'email'=>$email
+                'name' => $name,
+                'email' => $email
             ],
             [
-                'name'=>$name,
-                'email'=>$email,
-                'password'=>Hash::make(Str::random(8))
+                'name' => $name,
+                'email' => $email,
+                'password' => Hash::make(Str::random(8))
             ]
         );
         return view('users.show', compact('user'));
@@ -53,15 +53,12 @@ class UserController extends Controller
         // TASK: find a user by $name and update it with $email
         //   if not found, create a user with $name, $email and random password
         // updated or created user
-
-        $user = User::where('name',$name)
-        ->update(['email',$email]);
-
-        if ($user->wasChanged()){
-            User::create([
-                'name'=>$name,
-                'email'=>$email,
-                'password'=>Hash::make(Str::random(8))
+        $user = new User();
+        if (User::where('name', $name)->update(['email' => $email]) == 0) {
+           $user = User::create([
+                'name' => $name,
+                'email' => $email,
+                'password' => Hash::make(Str::random(8))
             ]);
         }
 

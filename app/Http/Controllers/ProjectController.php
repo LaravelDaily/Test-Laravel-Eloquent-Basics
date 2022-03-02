@@ -15,7 +15,7 @@ class ProjectController extends Controller
             'name' => $request->name
         ]);
 
-        return redirect('/')->with('success', 'Project created');
+        return redirect('/',302)->with('success', 'Project created');
     }
 
     public function mass_update(Request $request)
@@ -26,8 +26,8 @@ class ProjectController extends Controller
         //   where name = $request->old_name
 
         // Insert Eloquent statement below
-        Project::where('name',$request->old_name)
-            ->update(['name',$request->new_name ]);
+        Project::where('name', $request->old_name)
+            ->update(['name'=> $request->new_name ]);
         return redirect('/')->with('success', 'Projects updated');
     }
 
