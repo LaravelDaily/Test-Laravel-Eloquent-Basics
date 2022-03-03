@@ -15,7 +15,6 @@ class ProjectController extends Controller
         Project::create([
             'name' => $request->name
         ]);
-
         return redirect('/',302)->with('success', 'Project created');
     }
 
@@ -48,8 +47,9 @@ class ProjectController extends Controller
         // TASK: on creating a new project, create an Observer event to run SQL
         //   update stats set projects_count = projects_count + 1
         Project::create([
-            'name'=>'neo'
-            ]);
+            'name' => 'made by neo'
+        ]);
+        return 'project created';
 
         return redirect('/')->with('success', 'Project created');
     }

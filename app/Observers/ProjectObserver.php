@@ -4,6 +4,7 @@ namespace App\Observers;
 
 use App\Models\Project;
 use App\Models\Stat;
+use Illuminate\Support\Facades\DB;
 use phpDocumentor\Reflection\Types\Object_;
 
 class ProjectObserver
@@ -16,8 +17,11 @@ class ProjectObserver
      */
     public function created(Project $project)
     {
-       $value= Stat::find('projects_count');
-       $project->update(['projects_count'=>$value++]);
+//       dd('project created');
+//       $value= DB::table('stats')->first('projects_count');
+//       $value =  $value->projects_count;
+//       $value++;
+       DB::table('stats')->increment('projects_count');
     }
 
     /**
