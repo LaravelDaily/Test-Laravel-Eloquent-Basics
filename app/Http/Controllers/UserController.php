@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -15,7 +16,13 @@ class UserController extends Controller
         //   order by created_at desc
         //   limit 3
 
-        $users = User::all(); // replace this with Eloquent statement
+        // $users = User::all(); // replace this with Eloquent statement
+
+        $users = User::whereNotNull('email_verified_at')
+            ->limit(3)
+            ->orderBy("created_at", "desc")
+            ->get();
+
 
         return view('users.index', compact('users'));
     }
@@ -64,5 +71,4 @@ class UserController extends Controller
 
         return view('users.index', compact('users'));
     }
-
 }
