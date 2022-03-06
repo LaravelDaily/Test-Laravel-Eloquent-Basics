@@ -61,6 +61,8 @@ class UserController extends Controller
 
         // Insert Eloquent statement here
 
+        User::whereIn('id', $request->users)->delete();
+
         return redirect('/')->with('success', 'Users deleted');
     }
 
