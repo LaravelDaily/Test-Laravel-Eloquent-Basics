@@ -45,7 +45,7 @@ class UserController extends Controller
 
     public function destroy(Request $request)
     {
-        User::whereIn('id', $request->users)->delete();
+        User::destroy($request->users);
 
         return redirect('/')->with('success', 'Users deleted');
     }
