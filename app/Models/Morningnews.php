@@ -10,4 +10,9 @@ class Morningnews extends Model
     use HasFactory;
 
     protected $fillable = ['title', 'news_text'];
+
+    /**
+     * change the table name
+     */
+    protected $table = 'morning_news';
 }

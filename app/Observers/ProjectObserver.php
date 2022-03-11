@@ -1,0 +1,59 @@
+<?php
+namespace App\Observers;
+
+use App\Models\Project;
+use Illuminate\Support\Facades\DB;
+
+class ProjectObserver
+{
+
+     /**
+     * Handle events after all transactions are committed.
+     *
+     * @var bool
+     */
+    public $afterCommit = true;
+    /**
+     * Handle the Project "created" event.
+     *
+     * @param  \App\Models\Project  $project
+     * @return void
+     */
+    public function created(Project $project)
+    {
+        DB::table('stats')->increment('projects_count');
+    }
+
+    /**
+     * Handle the Project "updated" event.
+     *
+     * @param  \App\Models\Project  $project
+     * @return void
+     */
+    public function updated(Project $project)
+    {
+        //
+    }
+
+    /**
+     * Handle the Project "deleted" event.
+     *
+     * @param  \App\Models\Project  $project
+     * @return void
+     */
+    public function deleted(Project $project)
+    {
+        //
+    }
+
+    /**
+     * Handle the Project "forceDeleted" event.
+     *
+     * @param  \App\Models\Project  $project
+     * @return void
+     */
+    public function forceDeleted(Project $project)
+    {
+        //
+    }
+}
