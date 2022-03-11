@@ -99,10 +99,16 @@ class EloquentTest extends TestCase
             'email' => 'john@john.com'
         ]);
 
-        // Same parameters - should NOT create a new user
+        // Let's check if the password is going to change
+        $userPassword = User::value('password');
+
+        // Same name - should NOT create a new user
         $this->get('users/check_update/john/john2@john.com');
+        $this->assertDatabaseCount('users', 1);
         $this->assertDatabaseHas('users', [
             'name' => 'john',
+            // Let's check if the password has changed
+            'password' => $userPassword,
             'email' => 'john2@john.com'
         ]);
     }
