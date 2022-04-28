@@ -17,9 +17,9 @@ class EventServiceProvider extends ServiceProvider
      *
      * @var array
      */
-    protected $observers=[
-        Project::class=>[ProjectObserver::class],
-    ];
+    // protected $observers=[
+    //     Project::class=>[ProjectObserver::class],
+    // ];
     
     protected $listen = [
         Registered::class => [
@@ -35,5 +35,6 @@ class EventServiceProvider extends ServiceProvider
     public function boot()
     {
         //
+        Project::observe(ProjectObserver::class);
     }
 }
