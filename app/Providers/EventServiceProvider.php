@@ -2,13 +2,13 @@
 
 namespace App\Providers;
 
+
+use app\Models\Project;
+use app\Observers\ProjectObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
-
-use app\Models\Project;
-use app\Observers\ProjectObserver;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -17,9 +17,9 @@ class EventServiceProvider extends ServiceProvider
      *
      * @var array
      */
-    // protected $observers=[
-    //     Project::class=>[ProjectObserver::class],
-    // ];
+    protected $observers=[
+        Project::class=>[ProjectObserver::class],
+    ];
     
     protected $listen = [
         Registered::class => [
@@ -35,6 +35,6 @@ class EventServiceProvider extends ServiceProvider
     public function boot()
     {
         //
-        Project::observe(ProjectObserver::class);
+//         Project::observe(ProjectObserver::class);
     }
 }
