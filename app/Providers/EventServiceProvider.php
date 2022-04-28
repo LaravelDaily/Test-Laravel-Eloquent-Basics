@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> b05c44935c9d90298496b7f568b12623a8d02603
 use app\Models\Project;
 use app\Observers\ProjectObserver;
 use Illuminate\Auth\Events\Registered;
