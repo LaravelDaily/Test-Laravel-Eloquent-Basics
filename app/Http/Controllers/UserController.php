@@ -51,7 +51,7 @@ class UserController extends Controller
             
         ],[
             'email' => $email,
-            'password' => Hash::make(str_random(8)),
+            'password' => Hash::make(Str::random(8)),
         ]); // updated or created user
 
         return view('users.show', compact('user'));
