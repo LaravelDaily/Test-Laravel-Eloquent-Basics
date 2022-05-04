@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -35,7 +36,7 @@ class UserController extends Controller
             'name' => $name,
             'email' => $email,
         ],[
-            'password' => Hash::make(str_random(8)),
+            'password' => Hash::make(Str::random(8)),
         ]);
 
         return view('users.show', compact('user'));
