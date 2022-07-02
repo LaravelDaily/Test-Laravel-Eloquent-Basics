@@ -14,7 +14,6 @@ class ProjectController extends Controller
         Project::create([
             'name' => $request->name
         ]);
-
         return redirect('/')->with('success', 'Project created');
     }
 

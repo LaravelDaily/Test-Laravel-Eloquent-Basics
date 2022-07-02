@@ -55,6 +55,7 @@ class UserController extends Controller
             ['name'  => $name],
             ['email' => $email, 'password' => Str::random(8)]
         );
+
         return view('users.show', compact('user'));
     }
 
