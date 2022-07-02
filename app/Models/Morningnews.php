@@ -9,5 +9,5 @@ class Morningnews extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['id','title', 'news_text'];
+    protected $guarded = ['id'];
 }
