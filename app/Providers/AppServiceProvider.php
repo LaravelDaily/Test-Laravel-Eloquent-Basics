@@ -1,28 +1,33 @@
 <?php
-
 namespace App\Providers;
 
-use Illuminate\Support\ServiceProvider;
+use App\Models\Project;
+use App\Observers\ProjectObserver;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
+use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Event;
 
-class AppServiceProvider extends ServiceProvider
+class EventServiceProvider extends ServiceProvider
 {
     /**
-     * Register any application services.
+     * The event listener mappings for the application.
      *
-     * @return void
+     * @var array
      */
-    public function register()
-    {
-        //
-    }
-
+    protected $listen = [
+        Registered::class => [
+            SendEmailVerificationNotification::class,
+        ],
+    ];
     /**
-     * Bootstrap any application services.
+     * Register any events for your application.
      *
      * @return void
      */
     public function boot()
     {
         //
+        Project::observe(ProjectObserver::class);
     }
 }
