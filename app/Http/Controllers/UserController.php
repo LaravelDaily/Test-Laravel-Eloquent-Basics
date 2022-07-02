@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -15,14 +16,19 @@ class UserController extends Controller
         //   order by created_at desc
         //   limit 3
 
-        $users = User::all(); // replace this with Eloquent statement
+        // $users = User::all(); // replace this with Eloquent statement
+        $users = User::whereNotNull('email_verified_at')
+                ->orderBy('created_at', 'desc')
+                ->get()
+                ->take(3);
 
         return view('users.index', compact('users'));
     }
 
     public function show($userId)
     {
-        $user = NULL; // TASK: find user by $userId or show "404 not found" page
+        // $user = null; // TASK: find user by $userId or show "404 not found" page
+        $user = User::findOrFail($userId);
 
         return view('users.show', compact('user'));
     }
@@ -31,7 +37,11 @@ class UserController extends Controller
     {
         // TASK: find a user by $name and $email
         //   if not found, create a user with $name, $email and random password
-        $user = NULL;
+        // $user = null;
+        $user = User::firstOrCreate(
+            ['name'  => $name],
+            ['email' => $email, 'password' => Str::random(8)]
+        );
 
         return view('users.show', compact('user'));
     }
@@ -40,8 +50,11 @@ class UserController extends Controller
     {
         // TASK: find a user by $name and update it with $email
         //   if not found, create a user with $name, $email and random password
-        $user = NULL; // updated or created user
-
+        // $user = null; // updated or created user
+        $user = $user = User::updateOrCreate(
+            ['name'  => $name],
+            ['email' => $email, 'password' => Str::random(8)]
+        );
         return view('users.show', compact('user'));
     }
 
@@ -52,6 +65,7 @@ class UserController extends Controller
         // $request->users is an array of IDs, ex. [1, 2, 3]
 
         // Insert Eloquent statement here
+        User::destroy($request->users);
 
         return redirect('/')->with('success', 'Users deleted');
     }
@@ -64,5 +78,4 @@ class UserController extends Controller
 
         return view('users.index', compact('users'));
     }
-
 }
