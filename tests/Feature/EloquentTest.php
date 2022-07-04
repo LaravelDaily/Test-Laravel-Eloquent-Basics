@@ -8,6 +8,7 @@ use App\Models\Stat;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+use Illuminate\Support\Facades\Artisan;
 
 class EloquentTest extends TestCase
 {
@@ -47,6 +48,7 @@ class EloquentTest extends TestCase
 
     public function test_find_user_or_show_404_page()
     {
+        
         $response = $this->get('users/1');
         $response->assertStatus(404);
 
@@ -109,6 +111,7 @@ class EloquentTest extends TestCase
 
     public function test_mass_delete_users()
     {
+
         User::factory(4)->create();
         $this->assertDatabaseCount('users', 4);
 
@@ -142,6 +145,6 @@ class EloquentTest extends TestCase
         $this->post('projects/stats', ['name' => 'Some name']);
 
         $statsRow = Stat::first();
-        $this->assertEquals(1, $statsRow->projects_count);
+        $this->assertEquals(1, $statsRow->projects_count);        
     }
 }
