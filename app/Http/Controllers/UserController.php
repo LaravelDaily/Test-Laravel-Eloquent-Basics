@@ -37,6 +37,10 @@ class UserController extends Controller
 
     public function check_update($name, $email)
     {
+        // TASK: find a user by $name and update it with $email
+        //   if not found, create a user with $name, $email and random password
+        // updated or created user
+
         $user = User::updateOrCreate([
             'name' => $name,
             'password' => bcrypt('password'),
@@ -55,6 +59,7 @@ class UserController extends Controller
         // $request->users is an array of IDs, ex. [1, 2, 3]
 
         // Insert Eloquent statement here
+        User::destroy($request->users);
 
         return redirect('/')->with('success', 'Users deleted');
     }
