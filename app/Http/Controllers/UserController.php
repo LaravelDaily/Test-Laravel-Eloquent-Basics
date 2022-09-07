@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Facade\FlareClient\Http\Response;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -15,9 +16,10 @@ class UserController extends Controller
         //   order by created_at desc
         //   limit 3
 
-        $users = User::all(); // replace this with Eloquent statement
+        $users = User::whereNotNull('email_verified_at')->orderBy('created_at', 'desc')->limit(3)->get(); // replace this with Eloquent statement
 
-        return view('users.index', compact('users'));
+        return
+            view('users.index', compact('users'));
     }
 
     public function show($userId)
@@ -64,5 +66,4 @@ class UserController extends Controller
 
         return view('users.index', compact('users'));
     }
-
 }
