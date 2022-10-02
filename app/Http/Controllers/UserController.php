@@ -26,7 +26,7 @@ class UserController extends Controller
     public function show($userId)
     {
         $user = User::findOrFail($userId); // TASK: find user by $userId or show "404 not found" page
-        
+
         return view('users.show', compact('user'));
     }
 
@@ -37,7 +37,7 @@ class UserController extends Controller
         $user = User::findOrCreate([
             'name' => $name,
             'email' => $email,
-            'password' => bcrypt(rand());
+            'password' => bcrypt(rand()),
         ]);
 
         return view('users.show', compact('user'));
@@ -50,10 +50,10 @@ class UserController extends Controller
         $user = User::updateOrCreate(
             [
              'name' => $name,
-            'email' => $email
+            'email' => $email,
             ],
             [
-            'password' => bcrypt(rand());
+            'password' => bcrypt(rand()),
             ]
         ); // updated or created user
 
