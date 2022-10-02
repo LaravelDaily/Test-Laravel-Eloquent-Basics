@@ -26,9 +26,8 @@ class ProjectController extends Controller
         //   where name = $request->old_name
 
         // Insert Eloquent statement below
-        Project::where('name', $request->old_name)->update([
-            'name' => $request->new_name
-        ]);
+        Project::where('name', $request->old_name)->update(['name' => $request->new_name]);
+
         return redirect('/')->with('success', 'Projects updated');
     }
 
@@ -47,13 +46,13 @@ class ProjectController extends Controller
     {
         // TASK: on creating a new project, create an Observer event to run SQL
         //   update stats set projects_count = projects_count + 1
-        // $project = new Project();
-        // $project->name = $request->name;
-        // $project->save();
-        
-        Project::findOrCreate([
+//        $project = new Project();
+//        $project->name = $request->name;
+//        $project->save();
+
+        Project::firstOrCreate([
             'name' => $request->name
-            ]);
+        ]);
 
         return redirect('/')->with('success', 'Project created');
     }

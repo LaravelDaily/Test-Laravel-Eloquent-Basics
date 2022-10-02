@@ -15,10 +15,8 @@ class UserController extends Controller
         //   order by created_at desc
         //   limit 3
 
-        $users = User::whereNotNull(email_verified_at)
-            ->take(3)
-            ->latest()
-            ->get(); // replace this with Eloquent statement
+        $users = User::whereNotNull('email_verified_at')->take(3)->latest()->get(
+        ); // replace this with Eloquent statement
 
         return view('users.index', compact('users'));
     }
@@ -34,7 +32,7 @@ class UserController extends Controller
     {
         // TASK: find a user by $name and $email
         //   if not found, create a user with $name, $email and random password
-        $user = User::findOrCreate([
+        $user = User::firstOrCreate([
             'name' => $name,
             'email' => $email,
             'password' => bcrypt(rand()),
@@ -49,11 +47,11 @@ class UserController extends Controller
         //   if not found, create a user with $name, $email and random password
         $user = User::updateOrCreate(
             [
-             'name' => $name,
-            'email' => $email,
+                'name' => $name,
+                'email' => $email,
             ],
             [
-            'password' => bcrypt(rand()),
+                'password' => bcrypt(rand()),
             ]
         ); // updated or created user
 
@@ -68,6 +66,7 @@ class UserController extends Controller
 
         // Insert Eloquent statement here
         User::destroy($request->users);
+
         return redirect('/')->with('success', 'Users deleted');
     }
 
