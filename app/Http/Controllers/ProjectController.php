@@ -11,11 +11,12 @@ class ProjectController extends Controller
     public function store(Request $request)
     {
         // TASK: Currently this statement fails. Fix the underlying issue.
-        Project::create([
+        $project = Project::create([
             'name' => $request->name
         ]);
-
-        return redirect('/')->with('success', 'Project created');
+        if ($project) {
+            return redirect('/')->with('success', 'Project created');
+        }
     }
 
     public function mass_update(Request $request)
@@ -27,7 +28,13 @@ class ProjectController extends Controller
 
         // Insert Eloquent statement below
 
-        return redirect('/')->with('success', 'Projects updated');
+        $updateProject = Project::where([
+            'old_name' => $request->old_name
+        ])->update('name', $request->name);
+
+        if ($updateProject) {
+            return redirect('/')->with('success', 'Projects updated');
+        }
     }
 
     public function destroy($projectId)
@@ -35,9 +42,13 @@ class ProjectController extends Controller
         Project::destroy($projectId);
 
         // TASK: change this Eloquent statement to include the soft-deletes records
-        $projects = Project::all();
+        // $projects = Project::all();
 
-        return view('projects.index', compact('projects'));
+        $projects = Project::withTrashed()->get();
+
+        if ($projects) {
+            return view('projects.index', compact('projects'));
+        }
     }
 
     public function store_with_stats(Request $request)
@@ -50,5 +61,4 @@ class ProjectController extends Controller
 
         return redirect('/')->with('success', 'Project created');
     }
-
 }
