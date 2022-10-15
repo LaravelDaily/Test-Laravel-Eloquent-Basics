@@ -28,13 +28,10 @@ class ProjectController extends Controller
 
         // Insert Eloquent statement below
 
-        $updateProject = Project::where([
-            'old_name' => $request->old_name
-        ])->update('name', $request->name);
+        Project::where('name', $request->old_name)
+            ->update(['name' => $request->new_name]);
 
-        if ($updateProject) {
-            return redirect('/')->with('success', 'Projects updated');
-        }
+        return redirect('/')->with('success', 'Projects updated');
     }
 
     public function destroy($projectId)

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -57,12 +59,16 @@ class UserController extends Controller
 
         $user = User::where('name', $name)->first();
 
-        if ($user) {
-            $user->update(['email', $email]);
-        } else {
-            $user = $this->check_create($name, $email);
+        if ($user){
+            $user->update(['email',$email]);
         }
-
+        if (is_null($user)) {
+            User::create([
+                'name' => $name,
+                'email' => $email,
+                'password' => Hash::make(Str::random(8))
+            ]);
+        }
         return view('users.show', compact('user'));
     }
 
