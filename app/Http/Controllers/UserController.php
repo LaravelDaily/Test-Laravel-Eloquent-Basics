@@ -82,7 +82,7 @@ class UserController extends Controller
 
         // Insert Eloquent statement here
 
-        $user = User::whereIn('id', [$request->id])->delete();
+        User::destroy($request->users);
 
         return redirect('/')->with('success', 'Users deleted');
     }
