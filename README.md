@@ -107,7 +107,8 @@ Test method `test_soft_delete_projects()`.
 
 ## Task 10. Scopes with Filters.
 
-In `app/Http/Controllers/UserController.php` file method `only_active()`, make the main statement work and to filter records where email_verified_at is not null.
+In `app/Http/Controllers/UserController.php` file method `only_active()`, make the main statement work and to filter records
+where email_verified_at is not null.
 
 Test method `test_active_users()`.
 
@@ -115,7 +116,8 @@ Test method `test_active_users()`.
 
 ## Task 11. Observers with New Record.
 
-In `app/Http/Controllers/ProjectController.php` file method `store_with_stats()`, create a separate Observer file with an event to perform a +1 in the stats table.
+In `app/Http/Controllers/ProjectController.php` file method `store_with_stats()`, create a separate Observer file wit
+h an event to perform a +1 in the stats table.
 
 Test method `test_insert_observer()`.
 
