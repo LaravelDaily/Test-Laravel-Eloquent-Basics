@@ -9,5 +9,7 @@ class Stat extends Model
 {
     use HasFactory;
 
+    protected $table = 'stats';
+
     protected $fillable = ['users_count', 'projects_count'];
 }
