@@ -11,5 +11,5 @@ class Morningnews extends Model
 
     protected $fillable = ['title', 'news_text'];
 
-    protected $table = 'morning_news';
+    protected $table = "morning_news";
 }
