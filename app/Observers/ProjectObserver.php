@@ -16,7 +16,7 @@ class ProjectObserver
      */
     public function created(Project $project)
     {
-        $stat = Stat::query
+        $stat = Stat::query()
             ->update([
                 'projects_count' => DB::raw('projects_count + 1'),
             ]);
