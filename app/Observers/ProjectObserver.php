@@ -4,6 +4,7 @@ namespace App\Observers;
 
 use App\Models\Project;
 use App\Models\Stat;
+use Illuminate\Support\Facades\DB;
 
 class ProjectObserver
 {
@@ -16,8 +17,8 @@ class ProjectObserver
     public function created(Project $project)
     {
         $stat = Stat::update([
-            'projects_count' += 1,
-        ])
+            'projects_count' => DB::raw('projects_count + 1'),
+        ]);
     }
 
     /**
