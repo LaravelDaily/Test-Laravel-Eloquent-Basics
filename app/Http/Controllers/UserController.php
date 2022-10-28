@@ -49,17 +49,10 @@ class UserController extends Controller
     {
         // TASK: find a user by $name and update it with $email
         //   if not found, create a user with $name, $email and random password
-        $user = User::where('name', $name)
-            ->update([
-                'email' => $email,
-            ]);
-        if (!isset($user)){
-            $user = User::create([
-                'name' => $name,
-                'email' => $email,
-                'password' => Str::random(8),
-            ]);
-        }
+        $user = User::updateOrCreate(
+            ['name' => $name, 'email' => $email],
+            ['password' => Str::random(10)],
+        );
 
         return view('users.show', compact('user'));
     }
