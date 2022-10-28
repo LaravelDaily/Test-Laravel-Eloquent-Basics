@@ -13,9 +13,11 @@ class ProjectObserver
      * @param  \App\Models\Project  $project
      * @return void
      */
-    public function created(Project $project, Stat $stat)
+    public function created(Project $project)
     {
-        $stat->projects_count += 1;
+        $stat = Stat::update([
+            'projects_count' += 1,
+        ])
     }
 
     /**
