@@ -72,6 +72,11 @@ class EloquentTest extends TestCase
 
     public function test_create_project() {
         $response = $this->post('projects', ['name' => 'Some name']);
+
+        $this->assertDatabaseHas('projects', [
+            'name' => 'Some name',
+        ]);
+
         $response->assertRedirect();
     }
 
@@ -143,5 +148,10 @@ class EloquentTest extends TestCase
 
         $statsRow = Stat::first();
         $this->assertEquals(1, $statsRow->projects_count);
+
+        $this->post('projects/stats', ['name' => 'Some other name']);
+
+        $statsRow = Stat::first();
+        $this->assertEquals(2, $statsRow->projects_count);
     }
 }
