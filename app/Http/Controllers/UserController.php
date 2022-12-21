@@ -17,8 +17,8 @@ class UserController extends Controller
         //   limit 3
 
         $users = User::active()
-                    ->orderByDesc('created_at')
-                    ->limit(3)
+                    ->latest()
+                    ->take(3)
                     ->get();
 
         return view('users.index', compact('users'));
@@ -26,11 +26,7 @@ class UserController extends Controller
 
     public function show($userId)
     {
-        $user = User::find($userId); // TASK: find user by $userId or show "404 not found" page
-
-        if (!$user) {
-            abort(404);
-        }
+        $user = User::findOrFail($userId); // TASK: find user by $userId or show "404 not found" page
 
         return view('users.show', compact('user'));
     }
@@ -39,15 +35,11 @@ class UserController extends Controller
     {
         // TASK: find a user by $name and $email
         //   if not found, create a user with $name, $email and random password
-        $user = User::where('email', $email)->first();
-
-        if (!$user) {
-            $user = User::create([
-                'name' => $name,
-                'email' => $email,
-                'password' => Hash::make('password')
-            ]);
-        }
+        $user = User::firstOrCreate([
+            'name' => $name,
+            'email' => $email,
+            'password' => Hash::make('password')
+        ]);
 
         return view('users.show', compact('user'));
     }
@@ -56,18 +48,11 @@ class UserController extends Controller
     {
         // TASK: find a user by $name and update it with $email
         //   if not found, create a user with $name, $email and random password
-        $user = User::where('name', $name)->first(); // updated or created user
-
-        if ($user) {
-            $user->email = $email;
-            $user->save();
-        } else {
-            $user = User::create([
-                'name' => $name,
-                'email' => $email,
-                'password' => Hash::make('password')
-            ]);
-        }
+        $user = User::updateOrCreate([
+            'name' => $name,
+            'email' => $email,
+            'password' => Hash::make('password')
+        ]); // updated or created user
 
         return view('users.show', compact('user'));
     }
