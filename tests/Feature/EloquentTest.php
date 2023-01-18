@@ -21,7 +21,7 @@ class EloquentTest extends TestCase
 
         $this->assertDatabaseHas('morning_news', $article);
     }
-
+    
     // TASK: Write Eloquent query to return the newest 3 verified users
     public function test_get_filtered_list()
     {
@@ -44,7 +44,7 @@ class EloquentTest extends TestCase
         $response->assertSee('2. ' . $user4->name);
         $response->assertSee('3. ' . $user2->name); // not $user3
     }
-
+    
     public function test_find_user_or_show_404_page()
     {
         $response = $this->get('users/1');
@@ -55,7 +55,7 @@ class EloquentTest extends TestCase
         $response->assertStatus(200);
         $response->assertViewHas('user', $user);
     }
-
+    
     public function test_check_or_create_user()
     {
         $response = $this->get('users/check/john/john@john.com');
@@ -74,7 +74,7 @@ class EloquentTest extends TestCase
         $response = $this->post('projects', ['name' => 'Some name']);
         $response->assertRedirect();
     }
-
+    
     public function test_mass_update_projects() {
         $project = new Project();
         $project->name = 'Old name';
@@ -90,7 +90,7 @@ class EloquentTest extends TestCase
         $this->assertDatabaseMissing('projects', ['name' => 'Old name']);
         $this->assertDatabaseHas('projects', ['name' => 'New name']);
     }
-
+    
     public function test_check_or_update_user() {
         $response = $this->get('users/check_update/john/john@john.com');
         $response->assertStatus(200);
@@ -106,7 +106,7 @@ class EloquentTest extends TestCase
             'email' => 'john2@john.com'
         ]);
     }
-
+    
     public function test_mass_delete_users()
     {
         User::factory(4)->create();
@@ -118,7 +118,7 @@ class EloquentTest extends TestCase
         $response->assertRedirect();
         $this->assertDatabaseCount('users', 1);
     }
-
+    
     public function test_soft_delete_projects()
     {
         $project = new Project();
@@ -128,7 +128,7 @@ class EloquentTest extends TestCase
         $response = $this->delete('projects/' . $project->id);
         $response->assertSee('Some name');
     }
-
+    
     public function test_active_users()
     {
         $user = User::factory()->create(['email_verified_at' => NULL]);
@@ -136,7 +136,7 @@ class EloquentTest extends TestCase
         $response = $this->get('users/active');
         $response->assertDontSee($user->name);
     }
-
+    
     public function test_insert_observer()
     {
         $this->post('projects/stats', ['name' => 'Some name']);
