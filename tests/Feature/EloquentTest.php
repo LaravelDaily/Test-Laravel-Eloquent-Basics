@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\Models\Morningnews;
+use App\Models\MorningNews;
 use App\Models\Project;
 use App\Models\Stat;
 use App\Models\User;
@@ -13,11 +13,11 @@ class EloquentTest extends TestCase
 {
     use RefreshDatabase;
 
-    // TASK: Make the model Morningnews work with DB table "morning_news"
+    // TASK: Make the model MorningNews work with DB table "morning_news"
     public function test_create_model_incorrect_table()
     {
         $article = ['title' => 'Something', 'news_text' => 'Something'];
-        Morningnews::create($article);
+        MorningNews::create($article);
 
         $this->assertDatabaseHas('morning_news', $article);
     }
@@ -51,7 +51,7 @@ class EloquentTest extends TestCase
         $response->assertStatus(404);
 
         $user = User::factory()->create();
-        $response = $this->get('users/1');
+        $response = $this->get('users/'.$user->id);
         $response->assertStatus(200);
         $response->assertViewHas('user', $user);
     }
