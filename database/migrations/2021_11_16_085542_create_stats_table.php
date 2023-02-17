@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Stat;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -20,7 +21,7 @@ class CreateStatsTable extends Migration
             $table->timestamps();
         });
 
-        \App\Models\Stat::create(['users_count' => 0, 'projects_count' => 0]);
+        Stat::create(['users_count' => 0, 'projects_count' => 0]);
     }
 
     /**
