@@ -12,7 +12,7 @@ class ProjectController extends Controller
     {
         // TASK: Currently this statement fails. Fix the underlying issue.
         Project::create([
-            'name' => $request->name
+            'name' => $request->name,
         ]);
 
         return redirect('/')->with('success', 'Project created');
