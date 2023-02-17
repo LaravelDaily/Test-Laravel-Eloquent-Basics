@@ -46,7 +46,11 @@ class UserController extends Controller
     {
         // TASK: find a user by $name and update it with $email
         //   if not found, create a user with $name, $email and random password
-        $user = NULL; // updated or created user
+        $user = User::updateOrCreate(['name' => $name], [
+            'name' => $name,
+            'email' => $email,
+            Hash::make(Str::random(8))
+        ]); // updated or created user
 
         return view('users.show', compact('user'));
     }
@@ -58,6 +62,7 @@ class UserController extends Controller
         // $request->users is an array of IDs, ex. [1, 2, 3]
 
         // Insert Eloquent statement here
+        User::whereIn('id', $request->users)->delete();
 
         return redirect('/')->with('success', 'Users deleted');
     }
