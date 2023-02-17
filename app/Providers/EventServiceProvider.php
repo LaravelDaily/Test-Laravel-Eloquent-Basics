@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Models\Project;
 use App\Models\Stat;
+use App\Observers\EventObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -29,8 +30,6 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Project::created(function () {
-            Stat::increment('projects_count');
-        });
+        Project::observe(EventObserver::class);
     }
 }

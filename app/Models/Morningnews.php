@@ -2,8 +2,11 @@
 
 namespace App\Models;
 
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Models\MorningNews
@@ -11,17 +14,17 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id
  * @property string $title
  * @property string $news_text
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @method static \Illuminate\Database\Eloquent\Builder|MorningNews newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|MorningNews newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|MorningNews query()
- * @method static \Illuminate\Database\Eloquent\Builder|MorningNews whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|MorningNews whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|MorningNews whereNewsText($value)
- * @method static \Illuminate\Database\Eloquent\Builder|MorningNews whereTitle($value)
- * @method static \Illuminate\Database\Eloquent\Builder|MorningNews whereUpdatedAt($value)
- * @mixin \Eloquent
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @method static Builder|MorningNews newModelQuery()
+ * @method static Builder|MorningNews newQuery()
+ * @method static Builder|MorningNews query()
+ * @method static Builder|MorningNews whereCreatedAt($value)
+ * @method static Builder|MorningNews whereId($value)
+ * @method static Builder|MorningNews whereNewsText($value)
+ * @method static Builder|MorningNews whereTitle($value)
+ * @method static Builder|MorningNews whereUpdatedAt($value)
+ * @mixin Eloquent
  */
 class MorningNews extends Model
 {

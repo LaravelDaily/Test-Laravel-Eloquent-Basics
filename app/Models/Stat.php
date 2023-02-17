@@ -2,8 +2,11 @@
 
 namespace App\Models;
 
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Models\Stat
@@ -11,17 +14,17 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id
  * @property int $users_count
  * @property int $projects_count
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @method static \Illuminate\Database\Eloquent\Builder|Stat newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Stat newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Stat query()
- * @method static \Illuminate\Database\Eloquent\Builder|Stat whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Stat whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Stat whereProjectsCount($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Stat whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Stat whereUsersCount($value)
- * @mixin \Eloquent
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @method static Builder|Stat newModelQuery()
+ * @method static Builder|Stat newQuery()
+ * @method static Builder|Stat query()
+ * @method static Builder|Stat whereCreatedAt($value)
+ * @method static Builder|Stat whereId($value)
+ * @method static Builder|Stat whereProjectsCount($value)
+ * @method static Builder|Stat whereUpdatedAt($value)
+ * @method static Builder|Stat whereUsersCount($value)
+ * @mixin Eloquent
  */
 class Stat extends Model
 {

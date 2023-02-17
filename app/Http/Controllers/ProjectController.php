@@ -26,7 +26,7 @@ class ProjectController extends Controller
         //   where name = $request->old_name
 
         Project::where('name', $request->old_name)
-            ->update(['name' => $request->new_name,]);
+            ->update(['name' => $request->new_name]);
 
         // Insert Eloquent statement below
 
@@ -39,6 +39,8 @@ class ProjectController extends Controller
 
         // TASK: change this Eloquent statement to include the soft-deletes records
         $projects = Project::withTrashed()->all();
+
+        dd($projects);
 
         return view('projects.index', compact('projects'));
     }
