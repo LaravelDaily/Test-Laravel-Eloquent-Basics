@@ -41,4 +41,26 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function projects()
+    {
+        return $this->hasMany(Project::class);
+    }
+
+    public function stats()
+    {
+        return $this->hasMany(Stat::class);
+    }
+
+    //get Acrive users
+    public function scopeActive($query)
+    {
+        return $query->where('email_verified_at', '!=', null);
+    }
+
+    //check userAdmin
+    public function isAdmin()
+    {
+        return $this->admin;
+    }
 }
