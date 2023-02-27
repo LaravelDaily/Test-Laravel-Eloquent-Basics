@@ -42,7 +42,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function active()
+    public function scopeActive()
     {
         return User::whereNotNull('email_verified_at');
     }
