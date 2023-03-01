@@ -18,3 +18,7 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+.DS_Store
+database.sqlite
+package-lock.json
+
