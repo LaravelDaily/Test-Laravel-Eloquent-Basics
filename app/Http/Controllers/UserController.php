@@ -11,7 +11,7 @@ class UserController extends Controller
 {
 	public function index()
 	{
-		// TASK: turn this SQL query into Eloquent
+		// ✅ TASK: turn this SQL query into Eloquent
 		// select * from users
 		//   where email_verified_at is not null
 		//   order by created_at desc
@@ -25,14 +25,14 @@ class UserController extends Controller
 	public function show($userId)
 	{
 
-		$user = User::findOrFail($userId); // TASK: find user by $userId or show "404 not found" page
+		$user = User::findOrFail($userId); // ✅ TASK: find user by $userId or show "404 not found" page
 
 		return view('users.show', compact('user'));
 	}
 
 	public function check_create($name, $email)
 	{
-		// TASK: find a user by $name and $email
+		// ✅ TASK: find a user by $name and $email
 		//   if not found, create a user with $name, $email and random password
 
 		$user = User::firstOrCreate(
@@ -47,8 +47,13 @@ class UserController extends Controller
 	{
 		// TASK: find a user by $name and update it with $email
 		//   if not found, create a user with $name, $email and random password
-		$user = NULL; // updated or created user
+		$user = User::find($name); // updated or created user
 
+		if (!$user) {
+			$user = User::create(['name' => $name, 'email' => $email, 'password' => Hash::make(Str::random(10))]);
+		} else {
+			$user->email = $email;
+		}
 		return view('users.show', compact('user'));
 	}
 
