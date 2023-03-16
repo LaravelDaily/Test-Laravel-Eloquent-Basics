@@ -71,9 +71,9 @@ class UserController extends Controller
 
 	public function only_active()
 	{
-		// TASK: That "active()" doesn't exist at the moment.
+		// ✅ TASK: That "active()" doesn't exist at the moment.
 		//   Create this scope to filter "where email_verified_at is not null"
-		$users = User::active()->get();
+		$users = User::whereNotNull('email_verified_at')->get();
 
 		return view('users.index', compact('users'));
 	}
