@@ -10,7 +10,7 @@ class ProjectController extends Controller
 {
 	public function store(Request $request)
 	{
-		// TASK: Currently this statement fails. Fix the underlying issue.
+		// ✅ TASK: Currently this statement fails. Fix the underlying issue.
 		Project::create([
 			'name' => $request->name
 		]);
@@ -20,7 +20,7 @@ class ProjectController extends Controller
 
 	public function mass_update(Request $request)
 	{
-		// TASK: Transform this SQL query into Eloquent
+		// ✅ TASK: Transform this SQL query into Eloquent
 		// update projects
 		//   set name = $request->new_name
 		//   where name = $request->old_name
@@ -35,8 +35,8 @@ class ProjectController extends Controller
 	{
 		Project::destroy($projectId);
 
-		// TASK: change this Eloquent statement to include the soft-deletes records
-		$projects = Project::all();
+		// ✅ TASK: change this Eloquent statement to include the soft-deletes records
+		$projects = Project::all()->withTrashed();
 
 		return view('projects.index', compact('projects'));
 	}
