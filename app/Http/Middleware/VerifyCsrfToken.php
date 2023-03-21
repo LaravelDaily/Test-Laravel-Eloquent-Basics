@@ -14,4 +14,8 @@ class VerifyCsrfToken extends Middleware
     protected $except = [
         //
     ];
+//     public function handle(Request $request) {
+// $token = $request->header('X-CSRF-TOKEN') ?: $request->input('_token');
+
+//     }
 }
