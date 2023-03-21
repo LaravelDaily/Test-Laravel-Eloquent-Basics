@@ -23,6 +23,10 @@ class User extends Authenticatable
         'password',
     ];
 
+    public function scopeActive(Builder $query){
+        $query->whereNotNull("email_verified_at");
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *
