@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\ProjectStatEvent;
 use App\Models\Project;
 use App\Models\Stat;
 use Illuminate\Http\Request;
@@ -11,9 +12,10 @@ class ProjectController extends Controller
     public function store(Request $request)
     {
         // TASK: Currently this statement fails. Fix the underlying issue.
-        Project::create([
+      $project = Project::create([
             'name' => $request->name
         ]);
+    $project->save();
 
         return redirect('/')->with('success', 'Project created');
     }
@@ -24,6 +26,13 @@ class ProjectController extends Controller
         // update projects
         //   set name = $request->new_name
         //   where name = $request->old_name
+    //    Project::updateData($request->old_name, $request->new_name);
+  Project::where("name", $request->old_name)->update([
+    "name" => $request->new_name
+ ]);
+
+//  dd($projects);
+        // $projects->update(["name", $request->new_name]);
 
         // Insert Eloquent statement below
 
@@ -35,7 +44,7 @@ class ProjectController extends Controller
         Project::destroy($projectId);
 
         // TASK: change this Eloquent statement to include the soft-deletes records
-        $projects = Project::all();
+        $projects = Project::withTrashed()->restore();
 
         return view('projects.index', compact('projects'));
     }
@@ -47,7 +56,7 @@ class ProjectController extends Controller
         $project = new Project();
         $project->name = $request->name;
         $project->save();
-
+        event (new ProjectStatEvent());
         return redirect('/')->with('success', 'Project created');
     }
 
