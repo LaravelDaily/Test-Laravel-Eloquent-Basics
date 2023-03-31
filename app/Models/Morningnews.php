@@ -9,5 +9,11 @@ class Morningnews extends Model
 {
     use HasFactory;
 
+    /**
+     * Таблица БД, ассоциированная с моделью.
+     *
+     * @var string
+     */
+    protected $table = 'morning_news';
     protected $fillable = ['title', 'news_text'];
 }
