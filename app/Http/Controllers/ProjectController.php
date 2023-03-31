@@ -4,13 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Project;
 use App\Models\Stat;
+use App\Observers\ProjectObserver;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
 {
     public function store(Request $request)
     {
-        // TASK: Currently this statement fails. Fix the underlying issue.
         Project::create([
             'name' => $request->name
         ]);
@@ -20,12 +20,6 @@ class ProjectController extends Controller
 
     public function mass_update(Request $request)
     {
-        // TASK: Transform this SQL query into Eloquent
-        // update projects
-        //   set name = $request->new_name
-        //   where name = $request->old_name
-
-        // Insert Eloquent statement below
         Project::where('name', '=', $request->old_name)
             ->update(['name' => $request->new_name]);
         return redirect('/')->with('success', 'Projects updated');
@@ -46,6 +40,7 @@ class ProjectController extends Controller
         // TASK: on creating a new project, create an Observer event to run SQL
         //   update stats set projects_count = projects_count + 1
         $project = new Project();
+        $project::observe(ProjectObserver::class);
         $project->name = $request->name;
         $project->save();
 
