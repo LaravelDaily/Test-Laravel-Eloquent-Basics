@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Nette\Utils\Random;
 
 class UserController extends Controller
 {
@@ -33,7 +34,12 @@ class UserController extends Controller
     {
         // TASK: find a user by $name and $email
         //   if not found, create a user with $name, $email and random password
-        $user = NULL;
+        $user = User::query()->firstOrCreate([
+            'name' => $name,
+            'email' => $email
+        ], [
+            'password' => bcrypt(Random::generate(random_int(8, 32), '0-9a-zA-Z_'))
+        ]);
 
         return view('users.show', compact('user'));
     }
