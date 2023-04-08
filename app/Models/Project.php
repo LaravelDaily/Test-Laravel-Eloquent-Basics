@@ -11,4 +11,11 @@ class Project extends Model
     use HasFactory, SoftDeletes;
     
     protected $fillable = ['name'];
+    
+     protected static function booted(): void
+    {
+        static::created(function (Project $project) {
+            Stat::query()->increment('projects_count');
+        });
+    }
 }
