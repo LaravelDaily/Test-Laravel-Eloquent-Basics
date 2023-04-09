@@ -28,7 +28,7 @@ class ProjectController extends Controller
         // Insert Eloquent statement below
         Project::where('name',$request->old_name)->update([
             'name' => $request->new_name
-            )];
+            ]);
 
         return redirect('/')->with('success', 'Projects updated');
     }
