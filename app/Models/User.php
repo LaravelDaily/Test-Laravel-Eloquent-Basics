@@ -42,7 +42,11 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    public static function active(Builder $query):void
+
+    /**
+     * Scope a query to only include active users.
+     */
+    public function scopeActive(Builder $query):void
     {
         $query->whereNotNull('email_verified_at');
     }
