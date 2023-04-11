@@ -15,14 +15,18 @@ class UserController extends Controller
         //   order by created_at desc
         //   limit 3
 
-        $users = User::all(); // replace this with Eloquent statement
+
+        $users = User::where('email_verified_at', '!=', NULL)
+            ->orderBy('created_at', 'desc')
+            ->limit(3)
+            ->get();
 
         return view('users.index', compact('users'));
     }
 
     public function show($userId)
     {
-        $user = NULL; // TASK: find user by $userId or show "404 not found" page
+        $user = User::findOrFail($userId); // TASK: find user by $userId or show "404 not found" page
 
         return view('users.show', compact('user'));
     }
@@ -31,7 +35,17 @@ class UserController extends Controller
     {
         // TASK: find a user by $name and $email
         //   if not found, create a user with $name, $email and random password
-        $user = NULL;
+
+
+        if (User::where('name', $name)->where('email', $email)->first() == NULL) {
+            $user = User::create([
+                'name' => $name,
+                'email' => $email,
+                'password' => bcrypt('password')
+            ]);
+        } else {
+            $user = User::where('name', $name)->where('email', $email)->first();
+        }
 
         return view('users.show', compact('user'));
     }
@@ -40,7 +54,18 @@ class UserController extends Controller
     {
         // TASK: find a user by $name and update it with $email
         //   if not found, create a user with $name, $email and random password
-        $user = NULL; // updated or created user
+
+        if (User::where('name', $name)->first() == NULL) {
+            $user = User::create([
+                'name' => $name,
+                'email' => $email,
+                'password' => bcrypt('password')
+            ]);
+        } else {
+            $user = User::where('name', $name)->first();
+            $user->email = $email;
+            $user->save();
+        }
 
         return view('users.show', compact('user'));
     }
@@ -53,6 +78,8 @@ class UserController extends Controller
 
         // Insert Eloquent statement here
 
+        user::destroy($request->users);
+
         return redirect('/')->with('success', 'Users deleted');
     }
 
@@ -60,9 +87,14 @@ class UserController extends Controller
     {
         // TASK: That "active()" doesn't exist at the moment.
         //   Create this scope to filter "where email_verified_at is not null"
-        $users = User::active()->get();
+        $users = User::all();
 
         return view('users.index', compact('users'));
     }
 
+
+    public function active() {
+
+        return $this->where('email_verified_at', '!=', NULL);
+    }
 }
