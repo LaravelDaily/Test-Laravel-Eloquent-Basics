@@ -41,8 +41,8 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    public function scopeActive(Builder $query): void
+    public function active()
     {
-        $query->whereNotNull('mail_verified_at');
+        return User::whereNotNull('mail_verified_at');
     }
 }
