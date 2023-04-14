@@ -41,7 +41,7 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    public function active()
+    public static function active()
     {
         return User::whereNotNull('mail_verified_at');
     }
