@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Models\Project;
+use App\Models\Stat;
 
 class ProjectObserver
 {
