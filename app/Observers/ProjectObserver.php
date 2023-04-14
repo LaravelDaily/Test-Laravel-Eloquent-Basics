@@ -9,15 +9,15 @@ class ProjectObserver
     /**
      * Handle the Project "created" event.
      */
-    public function created(Project $user): void
+    public function created(Project $project): void
     {
-        // ...
+        Stat::increment('projects_count');
     }
 
     /**
      * Handle the Project "updated" event.
      */
-    public function updated(Project $user): void
+    public function updated(Project $project): void
     {
         // ...
     }
@@ -25,7 +25,7 @@ class ProjectObserver
     /**
      * Handle the Project "deleted" event.
      */
-    public function deleted(Project $user): void
+    public function deleted(Project $project): void
     {
         // ...
     }
@@ -33,7 +33,7 @@ class ProjectObserver
     /**
      * Handle the Project "restored" event.
      */
-    public function restored(Project $user): void
+    public function restored(Project $project): void
     {
         // ...
     }
@@ -41,7 +41,7 @@ class ProjectObserver
     /**
      * Handle the Project "forceDeleted" event.
      */
-    public function forceDeleted(Project $user): void
+    public function forceDeleted(Project $project): void
     {
         // ...
     }
