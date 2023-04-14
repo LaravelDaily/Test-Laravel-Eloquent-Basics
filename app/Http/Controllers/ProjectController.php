@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 
 class ProjectController extends Controller
 {
-    protected $fillable = ['name'];
     public function store(Request $request)
     {
         // TASK: Currently this statement fails. Fix the underlying issue.
