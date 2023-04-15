@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Project;
 use App\Models\Stat;
+use DB;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
@@ -24,9 +25,10 @@ class ProjectController extends Controller
         // update projects
         //   set name = $request->new_name
         //   where name = $request->old_name
-
+        $query =
+            "UPDATE projects SET name = '{$request->new_name}'  WHERE name = '{$request->old_name}' ";
         // Insert Eloquent statement below
-
+        DB::statement($query);
         return redirect('/')->with('success', 'Projects updated');
     }
 
@@ -35,7 +37,7 @@ class ProjectController extends Controller
         Project::destroy($projectId);
 
         // TASK: change this Eloquent statement to include the soft-deletes records
-        $projects = Project::all();
+        $projects = Project::all()->restore();
 
         return view('projects.index', compact('projects'));
     }
@@ -50,5 +52,4 @@ class ProjectController extends Controller
 
         return redirect('/')->with('success', 'Project created');
     }
-
 }
