@@ -57,7 +57,6 @@ class UserController extends Controller
         $user = User::where('name', $name)->first();
 
         if ($user) {
-            $user = new User();
             $user->email = $email;
             $user->save();
         } elseif (!$user) {
