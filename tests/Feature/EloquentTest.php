@@ -65,7 +65,7 @@ class EloquentTest extends TestCase
             'email' => 'john@john.com'
         ]);
 
-        // Same parameters - should NOT create a new user
+//         Same parameters - should NOT create a new user
         $this->get('users/check/john/john@john.com');
         $this->assertDatabaseCount('users', 1);
     }
