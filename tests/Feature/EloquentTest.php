@@ -27,7 +27,7 @@ class EloquentTest extends TestCase
     {
         $user1 = User::factory()->create(['created_at' => now()->subMinutes(5)]);
         $user2 = User::factory()->create(['created_at' => now()->subMinutes(4)]);
-        $user3 = User::factory()->create(['created_at' => now()->subMinutes(3), 'email_verified_at' => NULL]);
+        $user3 = User::factory()->create(['created_at' => now()->subMinutes(3), 'email_verified_at' => null]);
         $user4 = User::factory()->create(['created_at' => now()->subMinutes(2)]);
         $user5 = User::factory()->create(['created_at' => now()->subMinute()]);
 
@@ -40,9 +40,9 @@ class EloquentTest extends TestCase
         $response->assertDontSee($user1->name);
 
         // Do we have the correct order?
-        $response->assertSee('1. ' . $user5->name);
-        $response->assertSee('2. ' . $user4->name);
-        $response->assertSee('3. ' . $user2->name); // not $user3
+        $response->assertSee('1. '.$user5->name);
+        $response->assertSee('2. '.$user4->name);
+        $response->assertSee('3. '.$user2->name); // not $user3
     }
 
     public function test_find_user_or_show_404_page()
@@ -62,7 +62,7 @@ class EloquentTest extends TestCase
         $response->assertStatus(200);
         $this->assertDatabaseHas('users', [
             'name' => 'john',
-            'email' => 'john@john.com'
+            'email' => 'john@john.com',
         ]);
 
         // Same parameters - should NOT create a new user
@@ -70,12 +70,14 @@ class EloquentTest extends TestCase
         $this->assertDatabaseCount('users', 1);
     }
 
-    public function test_create_project() {
+    public function test_create_project()
+    {
         $response = $this->post('projects', ['name' => 'Some name']);
         $response->assertRedirect();
     }
 
-    public function test_mass_update_projects() {
+    public function test_mass_update_projects()
+    {
         $project = new Project();
         $project->name = 'Old name';
         $project->save();
@@ -84,26 +86,27 @@ class EloquentTest extends TestCase
 
         $response = $this->post('projects/mass_update', [
             'old_name' => 'Old name',
-            'new_name' => 'New name'
+            'new_name' => 'New name',
         ]);
         $response->assertRedirect();
         $this->assertDatabaseMissing('projects', ['name' => 'Old name']);
         $this->assertDatabaseHas('projects', ['name' => 'New name']);
     }
 
-    public function test_check_or_update_user() {
+    public function test_check_or_update_user()
+    {
         $response = $this->get('users/check_update/john/john@john.com');
         $response->assertStatus(200);
         $this->assertDatabaseHas('users', [
             'name' => 'john',
-            'email' => 'john@john.com'
+            'email' => 'john@john.com',
         ]);
 
         // Same parameters - should NOT create a new user
         $this->get('users/check_update/john/john2@john.com');
         $this->assertDatabaseHas('users', [
             'name' => 'john',
-            'email' => 'john2@john.com'
+            'email' => 'john2@john.com',
         ]);
     }
 
@@ -113,7 +116,7 @@ class EloquentTest extends TestCase
         $this->assertDatabaseCount('users', 4);
 
         $response = $this->delete('users', [
-            'users' => [1, 2, 3]
+            'users' => [1, 2, 3],
         ]);
         $response->assertRedirect();
         $this->assertDatabaseCount('users', 1);
@@ -125,13 +128,13 @@ class EloquentTest extends TestCase
         $project->name = 'Some name';
         $project->save();
 
-        $response = $this->delete('projects/' . $project->id);
+        $response = $this->delete('projects/'.$project->id);
         $response->assertSee('Some name');
     }
 
     public function test_active_users()
     {
-        $user = User::factory()->create(['email_verified_at' => NULL]);
+        $user = User::factory()->create(['email_verified_at' => null]);
 
         $response = $this->get('users/active');
         $response->assertDontSee($user->name);
