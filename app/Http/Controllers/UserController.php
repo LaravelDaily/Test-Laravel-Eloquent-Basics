@@ -33,15 +33,11 @@ class UserController extends Controller
 
     public function check_create($name, $email)
     {
-        $user = User::where('name', $name)->where('email', $email);
+        $user = NULL;
+        if ( ! User::where('email', $email)->where('name',$name)->exists()) {
 
-        if($user === null) 
-        {
-            User::create(['name' => $name, 'email' => $email, 'password' => Hash::make(Str::random(10))]);          
-        }
-        // TASK: find a user by $name and $email
-        //   if not found, create a user with $name, $email and random password
-        //$user = NULL;
+            $user = User::create(['name' => $name,'email'=>$email,'password' => Hash::make(Str::random(8))]);
+         }
 
         return view('users.show', compact('user'));
     }
@@ -51,6 +47,17 @@ class UserController extends Controller
         // TASK: find a user by $name and update it with $email
         //   if not found, create a user with $name, $email and random password
         $user = NULL; // updated or created user
+
+        if(User::find('$name')->exists())
+        {
+            User::find('$name')->update(['email' => $email]);
+        }
+        else
+        {
+            User::create(['name' => $name, 'email' => $email, 'password' => Hash::make(Str::random(8))]);
+        }
+
+        $user = User::where('email', $email)->where('name',$name);
 
         return view('users.show', compact('user'));
     }
