@@ -48,16 +48,15 @@ class UserController extends Controller
         //   if not found, create a user with $name, $email and random password
         $user = NULL; // updated or created user
 
-        if(User::find('$name')->exists())
+        if(User::where('name', $name)->exists())
         {
-            User::find('$name')->update(['email' => $email]);
+            $user = User::where('name', $name)->update(['email' => $email])->get();
+            $user->save();
         }
         else
         {
-            User::create(['name' => $name, 'email' => $email, 'password' => Hash::make(Str::random(8))]);
+            $user = User::create(['name' => $name, 'email' => $email, 'password' => Hash::make(Str::random(8))]);
         }
-
-        $user = User::where('email', $email)->where('name',$name);
 
         return view('users.show', compact('user'));
     }
