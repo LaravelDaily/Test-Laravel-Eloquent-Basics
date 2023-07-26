@@ -19,8 +19,7 @@ class ProjectObserver
 
         //error_log('HELLO OBS');
         //DB::table('stats')->increment('projects_count');
-        $stat = new Stat();
-        $stat->increment('projects_count');
+        Stat::query()->increment('projects_count');
     }
 
     /**
