@@ -7,11 +7,13 @@ use App\Models\Project;
 use App\Models\Stat;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Tests\TestCase;
 
 class EloquentTest extends TestCase
 {
     use RefreshDatabase;
+    use WithoutMiddleware;  // middleware stop POST requests
 
     // TASK: Make the model Morningnews work with DB table "morning_news"
     public function test_create_model_incorrect_table()
@@ -51,7 +53,7 @@ class EloquentTest extends TestCase
         $response->assertStatus(404);
 
         $user = User::factory()->create();
-        $response = $this->get('users/1');
+        $response = $this->get('users/'.$user->id); // insure we get id of created User //break When do all tests 
         $response->assertStatus(200);
         $response->assertViewHas('user', $user);
     }
@@ -109,11 +111,13 @@ class EloquentTest extends TestCase
 
     public function test_mass_delete_users()
     {
-        User::factory(4)->create();
+        $userIds = User::factory(4)->create() //break When do all tests 
+            ->take(3)
+            ->pluck('id')->all();
         $this->assertDatabaseCount('users', 4);
 
         $response = $this->delete('users', [
-            'users' => [1, 2, 3]
+            'users' => $userIds
         ]);
         $response->assertRedirect();
         $this->assertDatabaseCount('users', 1);
