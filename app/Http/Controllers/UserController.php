@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -31,6 +33,12 @@ class UserController extends Controller
 
     public function check_create($name, $email)
     {
+        $user = User::where('name', '=', $name)->where('email', '=', $email);
+
+        if($user === null) 
+        {
+            User::insert(['name' => $name, 'email' => $email, 'password' => Hash::make(Str::random(10))]);          
+        }
         // TASK: find a user by $name and $email
         //   if not found, create a user with $name, $email and random password
         $user = NULL;
