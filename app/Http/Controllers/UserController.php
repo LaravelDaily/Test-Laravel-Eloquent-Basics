@@ -33,7 +33,7 @@ class UserController extends Controller
 
     public function check_create($name, $email)
     {
-        $user = User::where('name', '=', $name)->where('email', '=', $email);
+        $user = User::where('name', $name)->where('email', $email);
 
         if($user === null) 
         {
