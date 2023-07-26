@@ -2,8 +2,8 @@
 
 namespace App\Observers;
 
-use App\Models\project;
-use App\Models\stat;
+use App\Models\Project;
+use App\Models\Stat;
 use Illuminate\Support\Facades\DB;
 
 class ProjectObserver
@@ -18,7 +18,9 @@ class ProjectObserver
         $stat->save();*/
 
         //error_log('HELLO OBS');
-        DB::table('stats')->increment('projects_count');
+        //DB::table('stats')->increment('projects_count');
+        $stat = new Stat();
+        $stat->increment('projects_count');
     }
 
     /**
