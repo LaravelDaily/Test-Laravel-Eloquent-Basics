@@ -24,9 +24,9 @@ class UserController extends Controller
 
     public function show($userId)
     {
-        $user = User::find($userId);
+        $user = User::findOrFail($userId);
         
-        if($user === null) abort(404);// TASK: find user by $userId or show "404 not found" page
+        // TASK: find user by $userId or show "404 not found" page
 
         return view('users.show', compact('user'));
     }
@@ -37,11 +37,11 @@ class UserController extends Controller
 
         if($user === null) 
         {
-            User::insert(['name' => $name, 'email' => $email, 'password' => Hash::make(Str::random(10))]);          
+            User::create(['name' => $name, 'email' => $email, 'password' => Hash::make(Str::random(10))]);          
         }
         // TASK: find a user by $name and $email
         //   if not found, create a user with $name, $email and random password
-        $user = NULL;
+        //$user = NULL;
 
         return view('users.show', compact('user'));
     }
