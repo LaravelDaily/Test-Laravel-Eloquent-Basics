@@ -5,15 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\Project;
 use App\Models\Stat;
 use Illuminate\Http\Request;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ProjectController extends Controller
 {
-    use SoftDeletes;
+    
     public function store(Request $request)
     {
         // TASK: Currently this statement fails. Fix the underlying issue.
-        $success = Project::create([
+             Project::create([
             'name' => $request->name
         ]);
 
@@ -27,9 +26,9 @@ class ProjectController extends Controller
         //   set name = $request->new_name
         //   where name = $request->old_name
         // Insert Eloquent statement below
-        $user = User::where('name' , $request->old_name)->first();
-        $user->name = $request->new_name;
-        $user->save();
+        $project = Project::where('name' , $request->old_name)->first();
+        $project->name = $request->new_name;
+        $project->save();
 
         return redirect('/')->with('success', 'Projects updated');
     }
@@ -48,9 +47,13 @@ class ProjectController extends Controller
     {
         // TASK: on creating a new project, create an Observer event to run SQL
         //   update stats set projects_count = projects_count + 1
-        $project = new Project();
-        $project->name = $request->name;
-        $project->save();
+        // $project = new Project();
+        // $project->name = $request->name;
+        // $project->save();
+
+        $project = Project::create([
+            'name' => $request->name
+        )];
 
         return redirect('/')->with('success', 'Project created');
     }
