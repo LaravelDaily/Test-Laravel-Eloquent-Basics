@@ -17,7 +17,7 @@ class UserController extends Controller
         //   where email_verified_at is not null
         ->whereNotNull('email_verified')    
         //   order by created_at desc
-        ->orderByDesk('created_at')
+        ->orderByDesc('created_at')
         //   limit 3
         ->limit(3)
         ->get();
