@@ -15,10 +15,9 @@ class UserController extends Controller
         // select * from users
         //   where email_verified_at is not null
         //   order by created_at desc
-        
+             //   limit 3
         $users = User::whereNotNull('email_verified_at')    
         ->orderByDesc('created_at')
-            //   limit 3
         ->limit(3)
         ->get();
 
