@@ -71,7 +71,8 @@ class UserController extends Controller
         // $request->users is an array of IDs, ex. [1, 2, 3]
 
         // Insert Eloquent statement here
-
+        User::destroy($request->users);
+        
         return redirect('/')->with('success', 'Users deleted');
     }
 
@@ -79,7 +80,7 @@ class UserController extends Controller
     {
         // TASK: That "active()" doesn't exist at the moment.
         //   Create this scope to filter "where email_verified_at is not null"
-        $users = User::active()->get();
+        $users = User::whereNotNull('email_verified_at')->active()->get();
 
         return view('users.index', compact('users'));
     }
