@@ -38,7 +38,7 @@ class UserController extends Controller
         $user = User::firstOrCreate(
             ['name' => $name] ,
             ['email' => $email] ,
-            ['password' => Hash::make(str::random())] ,
+            ['password' => Hash::make(str::password())] ,
         );
         //   if not found, create a user with $name, $email and random password
         
