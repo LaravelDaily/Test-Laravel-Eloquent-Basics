@@ -13,16 +13,7 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    /**
-     * Scope a query.
-     */
-    public function scopeActive(Builder $query): void
-    {
-        $query->whereNotNull('where email_verified_at');
-    }
 
-
-    
     /**
      * The attributes that are mass assignable.
      *
@@ -52,4 +43,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Scope a query.
+     */
+    public function scopeActive(Builder $query): void
+    {
+        $query->whereNotNull('where email_verified_at');
+    }
 }
