@@ -50,8 +50,7 @@ class UserController extends Controller
         // TASK: find a user by $name and update it with $email
         $user = User::firstOrNew(
             ['name' => $name] ,
-            ['email' => $email] ,
-            ['password' => Hash::make(str::random())] ,
+            ['email' => $email , 'password' => Hash::make(str::random())] ,
         );
         $user->email = $email;
         $user->save();
