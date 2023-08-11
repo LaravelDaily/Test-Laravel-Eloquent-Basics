@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -12,6 +13,16 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    /**
+     * Scope a query to only include popular users.
+     */
+    public function scopeActive(Builder $query)
+    {
+        $query->whereNotNull('where email_verified_at');
+    }
+
+
+    
     /**
      * The attributes that are mass assignable.
      *
