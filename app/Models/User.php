@@ -14,9 +14,9 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
     /**
-     * Scope a query to only include popular users.
+     * Scope a query.
      */
-    public function scopeActive(Builder $query)
+    public function scopeActive(Builder $query): void
     {
         $query->whereNotNull('where email_verified_at');
     }
