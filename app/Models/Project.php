@@ -15,6 +15,7 @@ class Project extends Model
      *
      * @var string[]
      */
-    protected $fillable= [ 'user' ,
+    protected $fillable= [ 'name' ,
     ];
+    
 }
