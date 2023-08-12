@@ -2,47 +2,47 @@
  
 namespace App\Observers;
  
-use App\Models\User;
+use App\Models\Project;
 use App\Models\Stat;
 
-class UserObserver
+class ProjectObserver
 {
     /**
-     * Handle the User "created" event.
+     * Handle the Project "created" event.
      */
-    public function created(User $user): void
+    public function created(Project $project): void
     {
         (Stat::first())->increment('projects_count');
     }
  
     /**
-     * Handle the User "updated" event.
+     * Handle the Project "updated" event.
      */
-    public function updated(User $user): void
+    public function updated(Project $project): void
     {
         // ...
     }
  
     /**
-     * Handle the User "deleted" event.
+     * Handle the Project "deleted" event.
      */
-    public function deleted(User $user): void
+    public function deleted(Project $project): void
     {
         // ...
     }
  
     /**
-     * Handle the User "restored" event.
+     * Handle the Project "restored" event.
      */
-    public function restored(User $user): void
+    public function restored(Project $project): void
     {
         // ...
     }
  
     /**
-     * Handle the User "forceDeleted" event.
+     * Handle the Project "forceDeleted" event.
      */
-    public function forceDeleted(User $user): void
+    public function forceDeleted(Project $project): void
     {
         // ...
     }
