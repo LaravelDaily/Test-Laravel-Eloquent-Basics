@@ -12,7 +12,7 @@ class UserObserver
      */
     public function created(User $user): void
     {
-        Stat::first()->update(['projects_count' => 'projects_count + 1']);
+        Stat::first()->update(['projects_count' => ''projects_count' + 1']);
     }
  
     /**
