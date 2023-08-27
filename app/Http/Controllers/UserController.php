@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -32,14 +33,12 @@ class UserController extends Controller
     {
         // TASK: find a user by $name and $email
         //   if not found, create a user with $name, $email and random password
-        $user = User::where('name', $name)->where('email', $email)->first();
-        if (!$user) {
-            $user = User::create([
-                'name' => $name,
-                'email' => $email,
-                'password' => bcrypt(rand()),
-            ]);
-        }
+        $user = User::firstOrCreate([
+            'name' => $name,
+            'email' => $email,
+        ], [
+            'password' => Hash::make(rand()),
+        ]);
         return view('users.show', compact('user'));
     }
 
@@ -47,15 +46,13 @@ class UserController extends Controller
     {
         // TASK: find a user by $name and update it with $email
         //   if not found, create a user with $name, $email and random password
-        $user = User::where('name', $name)->update(['email' => $email]);
 
-        if (!$user) {
-            $user = User::create([
-                'name' => $name,
-                'email' => $email,
-                'password' => bcrypt(rand()),
-            ]);
-        }
+        $user = User::updateOrCreate([
+            'email' => $email,
+        ], [
+            'name' => $name,
+            'password' => bcrypt(Str::random(8)),
+        ]);
 
 
         return view('users.show', compact('user'));
