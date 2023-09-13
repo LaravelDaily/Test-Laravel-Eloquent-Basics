@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -32,7 +33,10 @@ class UserController extends Controller
     {
         // TASK: find a user by $name and $email
         //   if not found, create a user with $name, $email and random password
-        $user = NULL;
+        $user = $user = User::firstOrCreate([
+            'name' => $name,
+            'email' => $email
+        ], ['password' => Str::random()]);;
 
         return view('users.show', compact('user'));
     }
