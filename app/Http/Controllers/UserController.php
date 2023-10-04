@@ -16,17 +16,14 @@ class UserController extends Controller
         //   where email_verified_at is not null
         //   order by created_at desc
         //   limit 3
-
-        $users = User::whereNotNull('email_verified_at')
-            ->orderBy('created_at', 'desc')
-            ->limit(3)
-            ->get(); // replace this with Eloquent statement
+        $users = User::whereNotNull('email_verified_at')->orderBy('created_at', 'desc')->limit(3)->get(); // replace this with Eloquent statement
         return view('users.index', compact('users'));
     }
 
     public function show($userId)
     {
-        // TASK: find user by $userId or show "404 not found" page
+        $user = NULL; // TASK: find user by $userId or show "404 not found" page
+
         $user = User::findOrFail($userId);
 
         return view('users.show', compact('user'));
@@ -36,6 +33,7 @@ class UserController extends Controller
     {
         // TASK: find a user by $name and $email
         //   if not found, create a user with $name, $email and random password
+        $user = NULL;
         $user = User::firstOrCreate(
             ['name' => $name, 'email' => $email],
             ['name' => $name, 'email' => $email, 'password' => Hash::make(Str::random(8))]
@@ -48,9 +46,10 @@ class UserController extends Controller
     {
         // TASK: find a user by $name and update it with $email
         //   if not found, create a user with $name, $email and random password
+        $user = NULL;
         $user = User::updateOrCreate(
             ['name' => $name, 'email' => $email],
-            ['email' => $email, 'password' => Hash::make(Str::random(8))]
+            ['name' => $name, 'email' => $email, 'password' => Hash::make(Str::random(8))]
         ); // updated or created user
 
         return view('users.show', compact('user'));
