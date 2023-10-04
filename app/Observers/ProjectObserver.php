@@ -12,8 +12,9 @@ class ProjectObserver
      */
     public function created(Project $project): void
     {
-        $projects_count = Stat::query()->pluck('projects_count');
-        Stat::query()->update(['projects_count' => $projects_count++]);
+        $stat = Stat::first();
+        $stat->projects_count = $stat->projects_count++;
+        $stat->save();
     }
 
     /**
