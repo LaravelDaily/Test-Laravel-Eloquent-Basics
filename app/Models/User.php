@@ -43,9 +43,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    protected static function booted()
+    public function scopeActive(Builder $query)
     {
-        static::addGlobalScope(new FilterUserScope);
+        $query->whereNotNull('email_verified_at');
     }
 
 }
