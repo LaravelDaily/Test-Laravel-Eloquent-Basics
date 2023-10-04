@@ -11,4 +11,6 @@ class Stat extends Model
 
     protected $fillable = ['users_count', 'projects_count'];
 
+    protected $table = 'stats';
+
 }
