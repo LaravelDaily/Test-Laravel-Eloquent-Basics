@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\Project;
+use App\Models\Stat;
+use App\Observers\ProjectObserver;
+use App\Observers\StatObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -20,6 +24,11 @@ class EventServiceProvider extends ServiceProvider
         ],
     ];
 
+    protected $observers = [
+        Project::class => [ProjectObserver::class],
+        Stat::class => [StatObserver::class],
+    ];
+
     /**
      * Register any events for your application.
      *
@@ -27,6 +36,6 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Stat::observe(StatObserver::class);
     }
 }

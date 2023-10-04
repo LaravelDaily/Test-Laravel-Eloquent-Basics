@@ -10,4 +10,5 @@ class Stat extends Model
     use HasFactory;
 
     protected $fillable = ['users_count', 'projects_count'];
+
 }
