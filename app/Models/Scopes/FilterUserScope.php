@@ -15,4 +15,9 @@ class FilterUserScope implements Scope
     {
         $builder->whereNotNul('email_verified_at');
     }
+
+    public function apply(Builder $builder, Model $model)
+    {
+        // TODO: Implement apply() method.
+    }
 }
