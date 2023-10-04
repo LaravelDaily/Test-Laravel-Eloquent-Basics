@@ -19,7 +19,7 @@ class UserController extends Controller
 
         $users = User::query()
             ->whereNotNull('email_verified_at')
-            ->orderByDesc('created_at')
+            ->orderBy('created_at', 'desc')
             ->limit(3)
             ->get(); // replace this with Eloquent statement
         return view('users.index', compact('users'));
@@ -27,7 +27,12 @@ class UserController extends Controller
 
     public function show($userId)
     {
-        $user = User::query()->findOrFail($userId); // TASK: find user by $userId or show "404 not found" page
+        // TASK: find user by $userId or show "404 not found" page
+        $user = User::query()->find($userId);
+
+        if (!$user) {
+            abort(404);
+        }
 
         return view('users.show', compact('user'));
     }
@@ -63,7 +68,7 @@ class UserController extends Controller
         // $request->users is an array of IDs, ex. [1, 2, 3]
 
         // Insert Eloquent statement here
-        User::destroy([$request->users]);
+        User::destroy($request->users);
 
         return redirect('/')->with('success', 'Users deleted');
     }
@@ -72,7 +77,7 @@ class UserController extends Controller
     {
         // TASK: That "active()" doesn't exist at the moment.
         //   Create this scope to filter "where email_verified_at is not null"
-        $users = User::popular()->active()->get();
+        $users = User::active()->get();
 
         return view('users.index', compact('users'));
     }

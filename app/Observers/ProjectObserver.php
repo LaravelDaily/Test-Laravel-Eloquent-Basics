@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Models\Project;
+use App\Models\Stat;
 
 class ProjectObserver
 {
@@ -11,7 +12,8 @@ class ProjectObserver
      */
     public function created(Project $project): void
     {
-        //
+        $projects_count = Stat::query()->pluck('projects_count');
+        Stat::query()->update(['projects_count' => $projects_count++]);
     }
 
     /**
