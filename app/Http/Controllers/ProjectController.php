@@ -33,10 +33,10 @@ class ProjectController extends Controller
 
     public function destroy($projectId)
     {
-        Project::softDeleted($projectId);
+        Project::destroy($projectId);
 
         // TASK: change this Eloquent statement to include the soft-deletes records
-        $projects = Project::all();
+        $projects = Project::withTrashed()->get();
 
         return view('projects.index', compact('projects'));
     }

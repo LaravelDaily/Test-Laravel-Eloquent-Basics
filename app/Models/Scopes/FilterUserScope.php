@@ -11,13 +11,8 @@ class FilterUserScope implements Scope
     /**
      * Apply the scope to a given Eloquent query builder.
      */
-    public function scopeActive(Builder $builder): void
+    public function apply(Builder $builder, Model $model): void
     {
         $builder->whereNotNul('email_verified_at');
-    }
-
-    public function apply(Builder $builder, Model $model)
-    {
-        // TODO: Implement apply() method.
     }
 }
