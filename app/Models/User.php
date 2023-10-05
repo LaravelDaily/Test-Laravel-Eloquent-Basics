@@ -7,7 +7,6 @@ use Illuminate\Database\Query\Builder;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use App\Models\Scopes\FilterUserScope;
 
 class User extends Authenticatable
 {

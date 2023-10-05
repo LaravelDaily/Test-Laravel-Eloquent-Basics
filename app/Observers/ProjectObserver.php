@@ -13,7 +13,7 @@ class ProjectObserver
     public function created(Project $project)
     {
         $stat = Stat::first();
-        $stat->projects_count = $stat->projects_count++;
+        $stat->projects_count = ++$stat->projects_count;
         $stat->save();
     }
 }
