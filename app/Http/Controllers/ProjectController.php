@@ -26,6 +26,7 @@ class ProjectController extends Controller
         //   where name = $request->old_name
 
         // Insert Eloquent statement below
+        Project::whereName($request->old_name)->update(['name' => $request->new_name]);
 
         return redirect('/')->with('success', 'Projects updated');
     }
@@ -35,7 +36,7 @@ class ProjectController extends Controller
         Project::destroy($projectId);
 
         // TASK: change this Eloquent statement to include the soft-deletes records
-        $projects = Project::all();
+        $projects = Project::softDeleted();
 
         return view('projects.index', compact('projects'));
     }
@@ -47,6 +48,7 @@ class ProjectController extends Controller
         $project = new Project();
         $project->name = $request->name;
         $project->save();
+        Stat::whereId(1)->increment('projects_count', 1);
 
         return redirect('/')->with('success', 'Project created');
     }
