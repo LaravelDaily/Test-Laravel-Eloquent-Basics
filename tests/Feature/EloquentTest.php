@@ -68,6 +68,7 @@ class EloquentTest extends TestCase
         // Same parameters - should NOT create a new user
         $this->get('users/check/john/john@john.com');
         $this->assertDatabaseCount('users', 1);
+        $this->assertDatabaseCount('users', 1);
     }
 
     public function test_create_project() {
