@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+
+
+    protected $fillable=['name','email','password'];
     public function index()
     {
         // TASK: turn this SQL query into Eloquent
