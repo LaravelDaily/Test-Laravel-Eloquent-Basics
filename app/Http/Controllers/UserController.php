@@ -22,7 +22,7 @@ class UserController extends Controller
 
     public function show($userId)
     {
-        $user = User::id; // TASK: find user by $userId or show "404 not found" page
+        $user = $userId; // TASK: find user by $userId or show "404 not found" page
 
         return view('users.show', compact('user'));
     }
