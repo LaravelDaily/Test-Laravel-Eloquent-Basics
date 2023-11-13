@@ -27,7 +27,7 @@ class UserController extends Controller
         if($user->exists()){
             return view('users.show', compact('user'));
         }
-        return abort(404);
+        abort(404);
     }
 
     public function check_create($name, $email)
