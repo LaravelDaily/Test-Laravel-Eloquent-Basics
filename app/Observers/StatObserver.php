@@ -3,9 +3,9 @@
 namespace App\Observers;
  
 use App\Models\Stat;
-use Illuminate\Contracts\Events\ShouldHandleEventsAfterCommit;
+
  
-class StatObserver implements ShouldHandleEventsAfterCommit
+class StatObserver
 {
 
     public function updated(Stat $stat): void
