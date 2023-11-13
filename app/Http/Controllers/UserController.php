@@ -52,7 +52,7 @@ class UserController extends Controller
         // TASK: delete multiple users by their IDs
         // SQL: delete from users where id in ($request->users)
         // $request->users is an array of IDs, ex. [1, 2, 3]
-
+        User::destroy($request->users);
         // Insert Eloquent statement here
 
         return redirect('/')->with('success', 'Users deleted');
