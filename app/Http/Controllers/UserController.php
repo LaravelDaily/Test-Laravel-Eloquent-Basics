@@ -22,14 +22,10 @@ class UserController extends Controller
 
     public function show($userId)
     {
-        $user = User::find($userId); // TASK: find user by $userId or show "404 not found" page
+        $user = User::findOrFail($userId); // TASK: find user by $userId or show "404 not found" page
 
-        if($user->exists()){
-            return view('users.show', compact('user'));
-        }
-        else{
-            abort(404);
-        }
+        return view('users.show', compact('user'));
+       
     }
 
     public function check_create($name, $email)
