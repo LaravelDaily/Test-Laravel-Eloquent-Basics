@@ -7,6 +7,9 @@ use App\Models\Project;
 use App\Models\Stat;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
+
 use Tests\TestCase;
 
 class EloquentTest extends TestCase
@@ -51,7 +54,7 @@ class EloquentTest extends TestCase
         $response->assertStatus(404);
 
         $user = User::factory()->create();
-        $response = $this->get('users/1');
+        $response = $this->get('users/'. $user->id);
         $response->assertStatus(200);
         $response->assertViewHas('user', $user);
     }
