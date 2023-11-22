@@ -112,12 +112,14 @@ class EloquentTest extends TestCase
 
     public function test_mass_delete_users()
     {
-        User::factory(4)->create();
+        $users = User::factory(4)->create();
         $this->assertDatabaseCount('users', 4);
 
+        $userIds = $users->pluck('id');
         $response = $this->delete('users', [
-            'users' => [1, 2, 3]
+            'users' => [$userIds[0], $userIds[1],$userIds[2]    ]
         ]);
+
         $response->assertRedirect();
         $this->assertDatabaseCount('users', 1);
     }
