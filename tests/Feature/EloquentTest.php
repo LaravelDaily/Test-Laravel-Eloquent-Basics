@@ -119,7 +119,6 @@ class EloquentTest extends TestCase
         $response = $this->delete('users', [
             'users' => [$ids[1], $ids[2], $ids[3]]
         ]);
-        Log::info(json_encode( $ids));
 
         $response->assertRedirect();
         $this->assertDatabaseCount('users', 1);
