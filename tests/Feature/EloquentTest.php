@@ -115,10 +115,11 @@ class EloquentTest extends TestCase
         $users = User::factory(4)->create();
         $this->assertDatabaseCount('users', 4);
 
-        $userIds = $users->pluck('id');
+        $ids = $users->pluck('id');
         $response = $this->delete('users', [
-            'users' => [$userIds[0], $userIds[1],$userIds[2]    ]
+            'users' => [$ids[1], $ids[2], $ids[3]]
         ]);
+        Log::info(json_encode( $ids));
 
         $response->assertRedirect();
         $this->assertDatabaseCount('users', 1);
