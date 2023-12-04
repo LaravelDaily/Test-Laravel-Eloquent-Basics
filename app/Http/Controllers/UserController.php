@@ -18,6 +18,7 @@ class UserController extends Controller
         $users = User::whereNotNull('email_verified_at')
         ->orderByDesc('created_at')
         ->limit(3)
+        ->get();
 
 
         return view('users.index', compact('users'));
