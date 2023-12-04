@@ -11,7 +11,11 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
-
+     
+    public function scopeActive(Builder $builder): void
+    {
+        $builder->whereNotNull('email_verified_at');
+    }
     /**
      * The attributes that are mass assignable.
      *
