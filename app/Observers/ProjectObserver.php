@@ -7,14 +7,14 @@ use App\Models\Project;
 use Illuminate\Contracts\Events\ShouldHandleEventsAfterCommit;
 use App\Models\Stat;
  
-class ProjectObserver implements ShouldHandleEventsAfterCommit;
+class ProjectObserver
 {
     /**
      * Handle the User "created" event.
      */
     public function created(Project $project): void
     {
-        // ...
+        Stat::increment('projects_count', 1);
     }
  
     /**
