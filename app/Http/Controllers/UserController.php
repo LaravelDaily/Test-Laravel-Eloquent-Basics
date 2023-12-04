@@ -35,7 +35,11 @@ class UserController extends Controller
     {
         // TASK: find a user by $name and $email
         //   if not found, create a user with $name, $email and random password
-        $user = NULL;
+        $user = User::firstOrCreate([
+            ['name' => $name],
+            ['email' => $email],
+            ['password' => 'random123']
+        ]);
 
         return view('users.show', compact('user'));
     }
