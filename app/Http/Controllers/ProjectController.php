@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
-use App\Models\Stat;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
@@ -14,7 +13,7 @@ class ProjectController extends Controller
         Project::create([
             'name' => $request->name
         ]);
-
+        
         return redirect('/')->with('success', 'Project created');
     }
 
@@ -26,9 +25,9 @@ class ProjectController extends Controller
         //   where name = $request->old_name
 
         // Insert Eloquent statement below
-
-         Project::where('name', $request->old_name)
-        ->update(['name' => $request->new_name]);
+        Project::where('name', $request->old_name)->update([
+            'name' => $request->new_name,
+        ]);
 
         return redirect('/')->with('success', 'Projects updated');
     }
