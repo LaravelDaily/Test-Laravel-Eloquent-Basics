@@ -29,9 +29,11 @@ $user = User::findOrFail($userId);
 
     public function check_create($name, $email)
     {
-        // TASK: find a user by $name and $email
+        // TASK4: find a user by $name and $email
         //   if not found, create a user with $name, $email and random password
-        $user = NULL;
+         $user = User::firstOrNew(['email' => $email], ['name' => $name]);
+        $user->password = rand(8,12);
+        $user->save();
 
         return view('users.show', compact('user'));
     }
