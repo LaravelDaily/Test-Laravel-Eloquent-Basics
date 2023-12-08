@@ -42,7 +42,8 @@ $user = User::findOrFail($userId);
     {
         // TASK: find a user by $name and update it with $email
         //   if not found, create a user with $name, $email and random password
-        $user = NULL; // updated or created user
+     // updated or created user
+        $user = User::UpdateOrCreate(['name' => $name], ['email' => $email]); // updated or created user
 
         return view('users.show', compact('user'));
     }
