@@ -3,14 +3,14 @@
 namespace App\Observers;
  
 use App\Models\Stat;
-use App\Models\User;
+use App\Models\Project;
  
 class ProjectObserver
 {
     /**
      * Handle the User "created" event.
      */
-    public function created(User $user): void
+    public function created(Project $project): void
     {
         // update env
         $stat = new Stat();
