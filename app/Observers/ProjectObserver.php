@@ -12,7 +12,7 @@ class ProjectObserver
      */
     public function created(User $user): void
     {
-        // ...
+        // update env
         $stat = new Stat();
         $stat->projects_count+1;
         $stat->save();
