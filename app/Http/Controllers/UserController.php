@@ -57,7 +57,7 @@ class UserController extends Controller
 
         // Insert Eloquent statement here
         User::destroy($request->users);
-
+        // update env
         return redirect('/')->with('success', 'Users deleted');
     }
 
