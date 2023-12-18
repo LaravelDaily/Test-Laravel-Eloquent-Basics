@@ -5,7 +5,7 @@ namespace App\Observers;
 use App\Models\Stat;
 use App\Models\Project;
  
-class UserObserver
+class ProjectObserver
 {
     /**
      * Handle the User "created" event.
