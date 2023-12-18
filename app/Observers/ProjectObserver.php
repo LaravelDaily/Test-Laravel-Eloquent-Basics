@@ -10,7 +10,7 @@ class UserObserver
     /**
      * Handle the User "created" event.
      */
-    public function created(Project $project): void
+    public function updateed(Project $project): void
     {
         // ...
       Stat::increment('projects_count',1);
