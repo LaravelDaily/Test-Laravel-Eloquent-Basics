@@ -45,10 +45,7 @@ class UserController extends Controller
             ['name'=>$name],
             ['email'=>$email,'password'=>Hash::make('random_password')]); // updated or created user
 
-         // $user = User::updateOrCreate(
-         //        ['name' => $name], // Search criteria
-         //        ['email' => $email, 'password' => Hash::make(Str::random(8))]
-         //    );
+
 
 
         return view('users.show', compact('user'));
