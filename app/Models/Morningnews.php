@@ -9,5 +9,7 @@ class Morningnews extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'news_text'];
+    protected $fillable = ['title', 'news_text'],
+    
+    $table = 'morning_news';
 }
