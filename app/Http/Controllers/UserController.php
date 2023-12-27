@@ -50,13 +50,14 @@ class UserController extends Controller
 
     public function check_update($name, $email)
     {
+        $user = User::where('name', $name)->first();
 
-        $user = User::where('name', $name)
-            ->update([
-                'email' => $email
+        if ($user) {
+            $user->update([
+                'email' => $email,
             ]);
-        if (!$user) {
-            $password = str_random(8);
+        } else {
+            $password = Str::random(8);
 
             $user = User::create([
                 'name' => $name,
@@ -64,6 +65,7 @@ class UserController extends Controller
                 'password' => Hash::make($password),
             ]);
         }
+
         return view('users.show', compact('user'));
     }
 
@@ -83,7 +85,7 @@ class UserController extends Controller
     {
         // TASK: That "active()" doesn't exist at the moment.
         //   Create this scope to filter "where email_verified_at is not null"
-        $users = User::active()->get();
+        $users = User::active()->get();;
 
         return view('users.index', compact('users'));
     }
