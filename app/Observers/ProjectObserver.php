@@ -3,6 +3,7 @@
 namespace App\Observers;
  
 use App\Models\Stat;
+use App\Models\Project;
  
 class ProjectObserver
 {
@@ -12,8 +13,8 @@ class ProjectObserver
     public function created(Project $project): void
     {
         // ...
-        $stat->increment('projects_count');
-        $stat->increment('users_count');
+        Stat::increment('projects_count');
+        
     }
  
    
