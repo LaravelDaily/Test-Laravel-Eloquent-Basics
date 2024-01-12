@@ -9,7 +9,7 @@ class ProjectObserver
     /**
      * Handle the User "created" event.
      */
-    public function created(Stat $stat): void
+    public function created(Project $project): void
     {
         // ...
         $stat->increment('projects_count');
