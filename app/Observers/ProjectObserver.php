@@ -12,7 +12,8 @@ class ProjectObserver
     public function created(Stat $stat): void
     {
         // ...
-      $stat->update(['projects_count'=>$stat->projects_count+1]);
+        $stat->increment('projects_count');
+        $stat->increment('users_count');
     }
  
    
