@@ -20,23 +20,23 @@ class ProjectController extends Controller
 
     public function mass_update(Request $request)
     {
-        // TASK: Transform this SQL query into Eloquent
-        // update projects
-        //   set name = $request->new_name
-        //   where name = $request->old_name
-
-        // Insert Eloquent statement below
+        $oldName = $request->old_name;
+        $newName = $request->new_name;
+    
+        // Update the projects with the old name to the new name
+        $affectedRows = Project::where('name', $oldName)->update(['name' => $newName]);
+    
 
         return redirect('/')->with('success', 'Projects updated');
     }
 
     public function destroy($projectId)
     {
-        Project::destroy($projectId);
+        Project::withTrashed()->destroy($projectId);
 
         // TASK: change this Eloquent statement to include the soft-deletes records
+  
         $projects = Project::all();
-
         return view('projects.index', compact('projects'));
     }
 
