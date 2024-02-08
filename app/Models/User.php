@@ -43,7 +43,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function scopeActive ( Builder $query ): void 
+    public function scopeActive(Builder $query): void 
     {
         $query->whereNotNull('email_verified_at');
     }
