@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -22,7 +23,7 @@ class UserController extends Controller
 
     public function show($userId)
     {
-        $user = findOrFail($userId); // TASK: find user by $userId or show "404 not found" page
+        $user = User::findOrFail($userId); // TASK: find user by $userId or show "404 not found" page
 
         return view('users.show', compact('user'));
     }
@@ -31,7 +32,12 @@ class UserController extends Controller
     {
         // TASK: find a user by $name and $email
         //   if not found, create a user with $name, $email and random password
-        $user = NULL;
+        $user = User::firstOrCreate([
+                                    'name'=>$name,
+                                    'email'=>$email
+        ],[
+                                    'password'=>Hash::make('random_password')
+        ]);
 
         return view('users.show', compact('user'));
     }
