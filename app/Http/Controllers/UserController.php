@@ -26,8 +26,11 @@ class UserController extends Controller
 
     public function show($userId)
     {
-        $user = NULL; // TASK: find user by $userId or show "404 not found" page
-
+        // $user = NULL; // TASK: find user by $userId or show "404 not found" page
+        $user = User::find($userId);
+        if (!$user) {
+            abort(404);
+        }
         return view('users.show', compact('user'));
     }
 
@@ -35,8 +38,17 @@ class UserController extends Controller
     {
         // TASK: find a user by $name and $email
         //   if not found, create a user with $name, $email and random password
-        $user = NULL;
+        $user = User::where('name', $name)
+            ->where('email', $email)
+            ->first();
 
+        if (!$user) {
+            $user = User::create([
+                'name' => $name,
+                'email' => $email,
+                'password' => bcrypt(Str::random(10)), // 生成隨機密碼並使用 bcrypt 加密
+            ]);
+        }
         return view('users.show', compact('user'));
     }
 
@@ -44,7 +56,17 @@ class UserController extends Controller
     {
         // TASK: find a user by $name and update it with $email
         //   if not found, create a user with $name, $email and random password
-        $user = NULL; // updated or created user
+        $user = User::where('name', $name)
+            ->where('email', $email)
+            ->first();
+
+        if (!$user) {
+            $user = User::create([
+                'name' => $name,
+                'email' => $email,
+                'password' => Str::random(10), // 生成隨機密碼並使用 bcrypt 加密
+            ]);
+        }
 
         return view('users.show', compact('user'));
     }
@@ -56,6 +78,8 @@ class UserController extends Controller
         // $request->users is an array of IDs, ex. [1, 2, 3]
 
         // Insert Eloquent statement here
+        $userIds = $request->users;
+        User::whereIn('id', $userIds)->delete();
 
         return redirect('/')->with('success', 'Users deleted');
     }
