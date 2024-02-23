@@ -13,7 +13,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        Project::observe(ProjectObserver::class);
     }
 
     /**
