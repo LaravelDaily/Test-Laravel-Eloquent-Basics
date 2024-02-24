@@ -4,6 +4,8 @@ namespace App\Observers;
 
 use App\Models\Project;
 use Illuminate\Support\Facades\DB;
+use App\Models\Stat;
+
 
 class ProjectObserver
 {
