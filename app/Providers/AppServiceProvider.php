@@ -16,7 +16,7 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         //
-        Project::observe(projectObserver::class);
+
     }
 
     /**
