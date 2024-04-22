@@ -50,7 +50,7 @@ class UserController extends Controller
                                      'name'=>$name
         ],[
                                      'email'=>$email,
-                                     'password'=>Hash::make('random_password');
+                                     'password'=>Hash::make('random_password')
         ]); // updated or created user
 
         return view('users.show', compact('user'));
