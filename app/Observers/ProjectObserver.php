@@ -13,6 +13,7 @@ class ProjectObserver
     public function created(Project $project): void
     {
         // ...
+        Stat::increment('projects_count');
     }
  
  
