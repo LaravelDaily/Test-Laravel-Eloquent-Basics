@@ -10,10 +10,13 @@ class ProjectController extends Controller
 {
     public function store(Request $request)
     {
-        // TASK: Currently this statement fails. Fix the underlying issue.
-        Project::create([
-            'name' => $request->name
+        $this->validate($request, [
+            'name' => 'required'
         ]);
+
+        $project = new Project();
+        $project->name = $request->name;
+        $project->save();
 
         return redirect('/')->with('success', 'Project created');
     }
@@ -26,6 +29,12 @@ class ProjectController extends Controller
         //   where name = $request->old_name
 
         // Insert Eloquent statement below
+        $projects = Project::where('name', $request->old_name)->get();
+
+        foreach ($projects as $project) {
+            $project->name = $request->new_name;
+            $project->save();
+        }
 
         return redirect('/')->with('success', 'Projects updated');
     }
@@ -35,7 +44,7 @@ class ProjectController extends Controller
         Project::destroy($projectId);
 
         // TASK: change this Eloquent statement to include the soft-deletes records
-        $projects = Project::all();
+        $projects = Project::all()->withTrashed();
 
         return view('projects.index', compact('projects'));
     }
