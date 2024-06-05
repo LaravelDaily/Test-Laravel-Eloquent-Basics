@@ -24,7 +24,7 @@ Route::get('/', function () {
 
 Route::get('users', [UserController::class, 'index']);
 Route::get('users/active', [UserController::class, 'only_active']);
-Route::get('users/{userId}', [UserController::class, 'show']);
+Route::get('users/{user}', [UserController::class, 'show']);
 Route::get('users/check/{name}/{email}', [UserController::class, 'check_create']);
 Route::get('users/check_update/{name}/{email}', [UserController::class, 'check_update']);
 Route::delete('users', [UserController::class, 'destroy']);
