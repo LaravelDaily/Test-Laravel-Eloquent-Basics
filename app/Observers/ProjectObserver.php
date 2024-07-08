@@ -12,8 +12,6 @@ class ProjectObserver
      */
     public function created(Project $project): void
     {
-        $stat = Stat::firstOrCreate();
-        $stat->projects_count++;
-        $stat->save();
+        Stat::first()->increment('projects_count');
     }
 }
