@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Project;
 use App\Models\Stat;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ProjectController extends Controller
 {
+    use SoftDeletes;
+
     public function store(Request $request)
     {
         // TASK: Currently this statement fails. Fix the underlying issue.
@@ -24,7 +27,8 @@ class ProjectController extends Controller
         // update projects
         //   set name = $request->new_name
         //   where name = $request->old_name
-
+        Project::where(['name' => $request->old_name])
+                ->update(['name' => $request->new_name]);
         // Insert Eloquent statement below
 
         return redirect('/')->with('success', 'Projects updated');
@@ -35,7 +39,7 @@ class ProjectController extends Controller
         Project::destroy($projectId);
 
         // TASK: change this Eloquent statement to include the soft-deletes records
-        $projects = Project::all();
+        $projects = Project::withTrashed()->all();
 
         return view('projects.index', compact('projects'));
     }
