@@ -13,16 +13,16 @@ class UserController extends Controller
         // select * from users
         //   where email_verified_at is not null
         //   order by created_at desc
-        //   limit 3
+        //   limit 
 
-        $users = User::all(); // replace this with Eloquent statement
+        $users = User::whereNotNull('email_verified_at')->orderByDesc('created_at')->limit(3)->get();
 
         return view('users.index', compact('users'));
     }
 
     public function show($userId)
     {
-        $user = NULL; // TASK: find user by $userId or show "404 not found" page
+        $user = null; // TASK: find user by $userId or show "404 not found" page
 
         return view('users.show', compact('user'));
     }
@@ -31,7 +31,7 @@ class UserController extends Controller
     {
         // TASK: find a user by $name and $email
         //   if not found, create a user with $name, $email and random password
-        $user = NULL;
+        $user = null;
 
         return view('users.show', compact('user'));
     }
@@ -40,7 +40,7 @@ class UserController extends Controller
     {
         // TASK: find a user by $name and update it with $email
         //   if not found, create a user with $name, $email and random password
-        $user = NULL; // updated or created user
+        $user = null; // updated or created user
 
         return view('users.show', compact('user'));
     }
@@ -64,5 +64,4 @@ class UserController extends Controller
 
         return view('users.index', compact('users'));
     }
-
 }
