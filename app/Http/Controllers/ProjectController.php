@@ -11,8 +11,12 @@ class ProjectController extends Controller
     public function store(Request $request)
     {
         // TASK: Currently this statement fails. Fix the underlying issue.
+        // $validated = $request->validated();
+        // $validated = $request->safe()->only(['name']);
+
         Project::create([
             'name' => $request->name
+            // 'name' => $validated['name']
         ]);
 
         return redirect('/')->with('success', 'Project created');
@@ -26,7 +30,11 @@ class ProjectController extends Controller
         //   where name = $request->old_name
 
         // Insert Eloquent statement below
+        // $validated = $request->validated();
+        // $validated = $request->safe()->only(['new_name','old_name']);
+        // Project::where('name', $validated['old_name'])->update(['name' => $validated['new_name']]);
 
+        Project::where('name', $request->old_name)->update(['name' => $request->new_name]);
         return redirect('/')->with('success', 'Projects updated');
     }
 
@@ -35,7 +43,7 @@ class ProjectController extends Controller
         Project::destroy($projectId);
 
         // TASK: change this Eloquent statement to include the soft-deletes records
-        $projects = Project::all();
+        $projects = Project::withTrashed()->get();
 
         return view('projects.index', compact('projects'));
     }
@@ -47,6 +55,16 @@ class ProjectController extends Controller
         $project = new Project();
         $project->name = $request->name;
         $project->save();
+
+        // $stats = new Stat;
+        // $stats->increment(['projects_count']);
+        // $stats->save();
+
+        $stat = Stat::first();
+        // $stat->increment(['projects_count']);
+        $count = $stat->projects_count + 1;
+        $stat->projects_count = $count;
+        $stat->save();
 
         return redirect('/')->with('success', 'Project created');
     }
