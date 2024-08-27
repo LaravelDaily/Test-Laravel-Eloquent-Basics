@@ -41,4 +41,17 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function projects()
+    {
+        return $this->belongsToMany(Project::class);
+    }
+   
+   // TASK: That "active()" doesn't exist at the moment.
+   //   Create this scope to filter "where email_verified_at is not null" 
+   public function scopeActive($query)
+   {
+       return $query->where('email_verified_at', '!=', null);
+   }
+
 }
