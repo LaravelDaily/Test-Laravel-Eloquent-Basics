@@ -15,14 +15,14 @@ class UserController extends Controller
         //   order by created_at desc
         //   limit 3
 
-        $users = User::all(); // replace this with Eloquent statement
+        $users = User::query()->whereNotNull('email_verified_at')->orderBy('id','desc')->limit(3)->get();
 
         return view('users.index', compact('users'));
     }
 
     public function show($userId)
     {
-        $user = NULL; // TASK: find user by $userId or show "404 not found" page
+        $user = User::findorfail($userId); // TASK: find user by $userId or show "404 not found" page
 
         return view('users.show', compact('user'));
     }
@@ -30,8 +30,8 @@ class UserController extends Controller
     public function check_create($name, $email)
     {
         // TASK: find a user by $name and $email
+        $user = User::where('name', $name)->orWhere('email', $email)->firstOrCreate(['name' => $name, 'email' => $email,'password'=>'abcd1234']);
         //   if not found, create a user with $name, $email and random password
-        $user = NULL;
 
         return view('users.show', compact('user'));
     }
@@ -39,8 +39,8 @@ class UserController extends Controller
     public function check_update($name, $email)
     {
         // TASK: find a user by $name and update it with $email
+        $user = User::query()->where('name', $name)->updateOrCreate(['email' => $email],['name'=>$name,'email' => $email,'password'=>'abcd1234']);
         //   if not found, create a user with $name, $email and random password
-        $user = NULL; // updated or created user
 
         return view('users.show', compact('user'));
     }
@@ -50,7 +50,7 @@ class UserController extends Controller
         // TASK: delete multiple users by their IDs
         // SQL: delete from users where id in ($request->users)
         // $request->users is an array of IDs, ex. [1, 2, 3]
-
+         User::query()->whereIn('id',$request->users)->delete();
         // Insert Eloquent statement here
 
         return redirect('/')->with('success', 'Users deleted');
