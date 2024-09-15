@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MorningNewsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProjectController;
@@ -33,3 +34,4 @@ Route::post('projects', [ProjectController::class, 'store']);
 Route::post('projects/stats', [ProjectController::class, 'store_with_stats']);
 Route::post('projects/mass_update', [ProjectController::class, 'mass_update']);
 Route::delete('projects/{projectId}', [ProjectController::class, 'destroy']);
+
