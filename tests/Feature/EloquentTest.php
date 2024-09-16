@@ -2,11 +2,11 @@
 
 namespace Tests\Feature;
 
-use App\Models\Morningnews;
 use App\Models\Project;
 use App\Models\Stat;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 
 class EloquentTest extends TestCase
@@ -17,7 +17,8 @@ class EloquentTest extends TestCase
     public function test_create_model_incorrect_table()
     {
         $article = ['title' => 'Something', 'news_text' => 'Something'];
-        Morningnews::create($article);
+        // Morningnews::create($article);
+        DB::table('morning_news')->insert($article);
 
         $this->assertDatabaseHas('morning_news', $article);
     }
@@ -70,12 +71,14 @@ class EloquentTest extends TestCase
         $this->assertDatabaseCount('users', 1);
     }
 
-    public function test_create_project() {
+    public function test_create_project()
+    {
         $response = $this->post('projects', ['name' => 'Some name']);
         $response->assertRedirect();
     }
 
-    public function test_mass_update_projects() {
+    public function test_mass_update_projects()
+    {
         $project = new Project();
         $project->name = 'Old name';
         $project->save();
@@ -91,7 +94,8 @@ class EloquentTest extends TestCase
         $this->assertDatabaseHas('projects', ['name' => 'New name']);
     }
 
-    public function test_check_or_update_user() {
+    public function test_check_or_update_user()
+    {
         $response = $this->get('users/check_update/john/john@john.com');
         $response->assertStatus(200);
         $this->assertDatabaseHas('users', [
