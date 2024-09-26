@@ -50,5 +50,4 @@ class ProjectController extends Controller
 
         return redirect('/')->with('success', 'Project created');
     }
-
 }
