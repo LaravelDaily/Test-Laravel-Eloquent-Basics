@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Project;
 use App\Models\Stat;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProjectController extends Controller
 {
@@ -26,6 +27,9 @@ class ProjectController extends Controller
         //   where name = $request->old_name
 
         // Insert Eloquent statement below
+        DB::table('projects')->where('name', $request->old_name)->update([
+            'name' => $request->new_name
+        ]);
 
         return redirect('/')->with('success', 'Projects updated');
     }
@@ -35,7 +39,7 @@ class ProjectController extends Controller
         Project::destroy($projectId);
 
         // TASK: change this Eloquent statement to include the soft-deletes records
-        $projects = Project::all();
+        $projects = Project::withTrashed()->get();
 
         return view('projects.index', compact('projects'));
     }
