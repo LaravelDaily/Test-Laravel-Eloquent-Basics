@@ -7,6 +7,7 @@ use App\Models\Project;
 use App\Models\Stat;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Database\Eloquent;
 use Tests\TestCase;
 
 class EloquentTest extends TestCase
@@ -31,8 +32,9 @@ class EloquentTest extends TestCase
         $user4 = User::factory()->create(['created_at' => now()->subMinutes(2)]);
         $user5 = User::factory()->create(['created_at' => now()->subMinute()]);
 
-        $response = $this->get('users');
+        $response = $this->get("users");
 
+        
         // This one should be filtered by "email_verified_at is not null"
         $response->assertDontSee($user3->name);
 
@@ -71,6 +73,7 @@ class EloquentTest extends TestCase
     }
 
     public function test_create_project() {
+        $this->withoutMiddleware();
         $response = $this->post('projects', ['name' => 'Some name']);
         $response->assertRedirect();
     }
@@ -79,7 +82,7 @@ class EloquentTest extends TestCase
         $project = new Project();
         $project->name = 'Old name';
         $project->save();
-
+        $this->withoutMiddleware();
         $this->assertDatabaseHas('projects', ['name' => 'Old name']);
 
         $response = $this->post('projects/mass_update', [
@@ -111,7 +114,7 @@ class EloquentTest extends TestCase
     {
         User::factory(4)->create();
         $this->assertDatabaseCount('users', 4);
-
+        $this->withoutMiddleware();
         $response = $this->delete('users', [
             'users' => [1, 2, 3]
         ]);
@@ -121,6 +124,7 @@ class EloquentTest extends TestCase
 
     public function test_soft_delete_projects()
     {
+        $this->withoutMiddleware();
         $project = new Project();
         $project->name = 'Some name';
         $project->save();
@@ -131,6 +135,7 @@ class EloquentTest extends TestCase
 
     public function test_active_users()
     {
+        $this->withoutMiddleware();
         $user = User::factory()->create(['email_verified_at' => NULL]);
 
         $response = $this->get('users/active');
@@ -139,6 +144,7 @@ class EloquentTest extends TestCase
 
     public function test_insert_observer()
     {
+        $this->withoutMiddleware();
         $this->post('projects/stats', ['name' => 'Some name']);
 
         $statsRow = Stat::first();
