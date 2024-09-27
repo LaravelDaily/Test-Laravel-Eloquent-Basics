@@ -13,7 +13,6 @@ class EloquentTest extends TestCase
 {
     use RefreshDatabase;
 
-    // TASK: Make the model Morningnews work with DB table "morning_news"
     public function test_create_model_incorrect_table()
     {
         $article = ['title' => 'Something', 'news_text' => 'Something'];
@@ -22,7 +21,6 @@ class EloquentTest extends TestCase
         $this->assertDatabaseHas('morning_news', $article);
     }
 
-    // TASK: Write Eloquent query to return the newest 3 verified users
     public function test_get_filtered_list()
     {
         $user1 = User::factory()->create(['created_at' => now()->subMinutes(5)]);
