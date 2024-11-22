@@ -30,9 +30,8 @@ class EloquentTest extends TestCase
         $user3 = User::factory()->create(['created_at' => now()->subMinutes(3), 'email_verified_at' => NULL]);
         $user4 = User::factory()->create(['created_at' => now()->subMinutes(2)]);
         $user5 = User::factory()->create(['created_at' => now()->subMinute()]);
-
+        $users = User::orderBy('created_at', 'desc')->limit(3)->get();
         $response = $this->get('users');
-
         // This one should be filtered by "email_verified_at is not null"
         $response->assertDontSee($user3->name);
 
@@ -70,12 +69,14 @@ class EloquentTest extends TestCase
         $this->assertDatabaseCount('users', 1);
     }
 
-    public function test_create_project() {
+    public function test_create_project()
+    {
         $response = $this->post('projects', ['name' => 'Some name']);
         $response->assertRedirect();
     }
 
-    public function test_mass_update_projects() {
+    public function test_mass_update_projects()
+    {
         $project = new Project();
         $project->name = 'Old name';
         $project->save();
@@ -91,7 +92,8 @@ class EloquentTest extends TestCase
         $this->assertDatabaseHas('projects', ['name' => 'New name']);
     }
 
-    public function test_check_or_update_user() {
+    public function test_check_or_update_user()
+    {
         $response = $this->get('users/check_update/john/john@john.com');
         $response->assertStatus(200);
         $this->assertDatabaseHas('users', [
@@ -118,7 +120,6 @@ class EloquentTest extends TestCase
         $response->assertRedirect();
         $this->assertDatabaseCount('users', 1);
     }
-
     public function test_soft_delete_projects()
     {
         $project = new Project();
@@ -129,6 +130,7 @@ class EloquentTest extends TestCase
         $response->assertSee('Some name');
     }
 
+
     public function test_active_users()
     {
         $user = User::factory()->create(['email_verified_at' => NULL]);
@@ -136,7 +138,6 @@ class EloquentTest extends TestCase
         $response = $this->get('users/active');
         $response->assertDontSee($user->name);
     }
-
     public function test_insert_observer()
     {
         $this->post('projects/stats', ['name' => 'Some name']);
