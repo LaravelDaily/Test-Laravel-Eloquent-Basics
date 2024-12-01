@@ -38,7 +38,10 @@ Test method `test_create_model_incorrect_table()`.
 In `app/Http/Controllers/UserController.php` file method `index()`, write Eloquent query to get 3 newest users with verified emails, ordered from newest to oldest. Transform this SQL query into Eloquent:
 
 ```
-select * from users where email_verified_at is not null order by created_at desc limit 3
+select * 
+from users 
+where email_verified_at is not null 
+order by created_at desc limit 3
 ```
 
 Test method `test_get_filtered_list()`.
@@ -74,7 +77,9 @@ Test method `test_create_project()`.
 In `app/Http/Controllers/ProjectController.php` file method `mass_update()`, write the update SQL query as Eloquent statement.
 
 ```
-update projects set name = $request->new_name where name = $request->old_name
+update projects 
+set name = $request->new_name 
+where name = $request->old_name
 ```
 
 Test method `test_mass_update_projects()`.
