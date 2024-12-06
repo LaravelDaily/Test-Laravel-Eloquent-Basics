@@ -50,7 +50,7 @@ class EloquentTest extends TestCase
         $response = $this->get('users/1');
         $response->assertStatus(404);
 
-        $user = User::factory()->create();
+        $user = User::factory()->create(['id' => 1]);
         $response = $this->get('users/1');
         $response->assertStatus(200);
         $response->assertViewHas('user', $user);
@@ -109,12 +109,15 @@ class EloquentTest extends TestCase
 
     public function test_mass_delete_users()
     {
+        User::truncate(); // Ensure no residual data
+        
         User::factory(4)->create();
         $this->assertDatabaseCount('users', 4);
 
         $response = $this->delete('users', [
             'users' => [1, 2, 3]
         ]);
+
         $response->assertRedirect();
         $this->assertDatabaseCount('users', 1);
     }
